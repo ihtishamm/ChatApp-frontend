@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import avatar from '@/assets/avatar.jpg'
 import { HiddenInput, IconButton } from '@/components/styles/styledComponents'
 import { FiCamera } from 'react-icons/fi'
@@ -44,7 +45,7 @@ const Page = () => {
                     Name
                   </label>
                   <div className="mt-2">
-                    <input
+                    <input style={{paddingLeft:'1rem'}}
                       id="name"
                       name="name"
                       type="text"
@@ -59,7 +60,7 @@ const Page = () => {
                     Email address
                   </label>
                   <div className="mt-2">
-                    <input
+                    <input style={{paddingLeft:'1rem'}}
                       id="email"
                       name="email"
                       type="email"
@@ -79,7 +80,7 @@ const Page = () => {
                     </div>
                   </div>
                 <div className="mt-2">
-                    <input
+                    <input style={{paddingLeft:'1rem'}}
                       id="password"
                       name="password"
                       type="password"
@@ -91,12 +92,12 @@ const Page = () => {
                 </div>
     
                 <div>
-                  <button
+                  <Button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                    >
                      Register
-                  </button>
+                     </Button>
                 </div>
               </form>
         
@@ -131,7 +132,7 @@ const Page = () => {
                     Email address
                   </label>
                   <div className="mt-2">
-                    <input
+                    <input style={{paddingLeft:'1rem'}}
                       id="email"
                       name="email"
                       type="email"
@@ -151,7 +152,7 @@ const Page = () => {
                     </div>
                   </div>
                 <div className="mt-2">
-                    <input
+                    <input style={{paddingLeft:'1rem'}}
                       id="password"
                       name="password"
                       type="password"
