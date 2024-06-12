@@ -5,7 +5,7 @@ function App() {
 
   return (
     <>
-       <h1 className="text-lg">hi </h1>
+       <h1 className="text-8xl">hi </h1>
     </>
   )
 }
