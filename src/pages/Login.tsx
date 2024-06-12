@@ -1,6 +1,8 @@
 import { useState } from 'react'
 const Page = () => {
-    const [islogin] = useState(true)
+    const [islogin, setLogin] = useState(true)
+    const handleLogin = () => { setLogin(false) }
+    const handleSignin = () => { setLogin(true) }
     return (
         <>
         {
@@ -74,7 +76,7 @@ const Page = () => {
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
+                   >
                      Register
                   </button>
                 </div>
@@ -83,7 +85,7 @@ const Page = () => {
                   <p className="mt-10 text-center text-sm text-gray-500">
                     Already have an account?{' '}
                     <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                      Login
+                    <button onClick={handleLogin}>Login</button> 
                     </a>
                   </p>
                 </div>
@@ -155,7 +157,7 @@ const Page = () => {
                   <p className="mt-10 text-center text-sm text-gray-500">
                     Not a member?{' '}
                     <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                      Register here
+                    <button onClick={handleSignin}>Register here</button>  
                     </a>
                   </p>
                 </div>
