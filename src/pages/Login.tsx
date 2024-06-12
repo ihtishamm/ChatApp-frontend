@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import avatar from '@/assets/avatar.jpg'
 import { HiddenInput, IconButton } from '@/components/styles/styledComponents'
 import { FiCamera } from 'react-icons/fi'
