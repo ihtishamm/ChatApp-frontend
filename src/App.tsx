@@ -7,7 +7,6 @@ import { BrowserRouter,Routes,Route } from "react-router-dom"
  const NotFound = lazy(()=> import("./pages/NotFound"))
 function App() {
 
-
   return (
      <BrowserRouter>
      <Routes>
