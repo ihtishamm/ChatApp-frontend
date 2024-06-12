@@ -1,5 +1,6 @@
 import useRoutes from "@/hooks/useRoutes";
 import { useState } from "react";
+import DesktopSidebarItem from "./DesktopItems";
 
 const DesktopSidebar = () => {
     const route = useRoutes();
@@ -12,8 +13,17 @@ const DesktopSidebar = () => {
          ">
           <nav className="mt-4 flex flex-col
              justify-bwtween">
-
+                <ul role="list" className="flex flex-col items-center space-y-1">
+                    {route.map((item) => (
+                         <DesktopSidebarItem key={item.label}
+                          href={item.href}
+                          label={item.label} icon={item.icon}
+                          active={item.active} onClick={item.onClick}
+                         />
+                    ))}
+                </ul>
           </nav>
+
 
         </div>
     );
