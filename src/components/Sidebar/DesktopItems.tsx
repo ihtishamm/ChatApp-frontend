@@ -4,21 +4,18 @@
  interface DesktopSidebarItemProps {
     href: string;
     label: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     icon: any;
     active: boolean;
-    onClick: () => void;
+    
  }
 
 const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({
-    href, label, icon:Icon, active, onClick
+    href, label, icon:Icon, active, 
 }) => {
-    const handleClick = () => { 
-        if(onClick){
-            return onClick();
-        }
-    }
+    
  return (
-        <li onClick={handleClick}>
+        <li>
         <Link to={href} 
           className={
             clsx(`group flex gap-x-3 rounded-md p-3 text-sm leading-6
