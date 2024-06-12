@@ -1,4 +1,8 @@
 import { useState } from 'react'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import avatar from '@/assets/avatar.jpg'
+import { HiddenInput, IconButton } from '@/components/styles/styledComponents'
+import { FiCamera } from 'react-icons/fi'
 const Page = () => {
     const [islogin, setLogin] = useState(true)
     const handleLogin = () => { setLogin(false) }
@@ -21,6 +25,20 @@ const Page = () => {
         
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
                 <form className="space-y-6" action="#" method="POST">
+
+                  <div className='relative w-[10rem] m-auto'>
+                   <Avatar className='w-[10rem] h-[10rem] object-contain'>
+                     <AvatarImage src={avatar} />
+                     </Avatar>
+                     
+                     <IconButton 
+                     
+                     >
+        <FiCamera size={20}/>
+        <HiddenInput type="file" />
+      </IconButton>
+                  </div>
+
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                     Name
