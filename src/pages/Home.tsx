@@ -1,11 +1,16 @@
-
-const Page = ()  => {
+import EmptyPage from '@/components/Custom/EmptyPage'
+import AppLayout from '@/layout/AppLayout'
+// eslint-disable-next-line react-refresh/only-export-components
+const Home = ()  => {
   return (
-         <h1>hi this is the homem page.
-          
-         </h1>
+         
+     <div className="hidden lg:block lg:pl-80 h-full h-screen">
+        <EmptyPage/>
+     </div>
+    
 
   )
 }
 
-export default Page
+// eslint-disable-next-line react-refresh/only-export-components
+export default AppLayout()(Home)
