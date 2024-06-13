@@ -1,8 +1,31 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import clsx from "clsx"
 import { useState } from "react"
+import avatar from "@/assets/avatar.jpg"
 import { MdAdd, MdOutlineGroupAdd } from "react-icons/md"
+import useConversation from "@/hooks/useConversation";
+import ConversationBox from "./ConversationBox";
+
+ 
+
+const initialValues = [
+    { id: 1, name: 'Alice Johnson', isGroup: false, avatar:{avatar} },
+    { id: 2, name: 'Bob Smith', isGroup: false, avatar:{avatar} },
+    { id: 3, name: 'Charlie Brown', isGroup: false, avatar:{avatar}},
+    { id: 4, name: 'Development Team', isGroup: true, avatar:{avatar}},
+    { id: 5, name: 'Emily Davis', isGroup: false,avatar:{avatar}},
+    { id: 6, name: 'Finance Group', isGroup: true, avatar:{avatar}},
+    { id: 7, name: 'Grace Lee', isGroup: false, avatar:{avatar} },
+    { id: 8, name: 'Henry Wilson', isGroup: false, avatar:{avatar} },
+    { id: 9, name: 'Marketing Team', isGroup: true, avatar:{avatar} },
+    { id: 10, name: 'Olivia Harris', isGroup: false, avatar:{avatar} },
+  ];
+  
+
+
 const ConversationsList = () => {
-    const [isOpen] = useState(false)
+    const [items] = useState(initialValues)
+    const {conversationId, isOpen} = useConversation()
     return (
         <aside className={
             clsx(`fixed insert-y-0 pb-20 lg:pb:0 lg:left-20 lg:w-80 lg:block overflow-y-auto
@@ -25,6 +48,13 @@ const ConversationsList = () => {
                 <MdOutlineGroupAdd size={20}/>
                 </div>
            </div>
+            {items.map((item) => (
+                <ConversationBox 
+                    key={item.id} 
+                    data={item}
+                    selected={Number(conversationId) === item.id}
+                />
+            ))}
          </div>
         </aside>
     )

@@ -1,7 +1,10 @@
-const Page = () => {
+/* eslint-disable react-refresh/only-export-components */
+import AppLayout from "@/layout/AppLayout"
+
+const Chat = () => {
     return(
-          <h1>hi this is the Chat page</h1>
+          <div className="hidden lg:block lg:pl-80 h-full h-screen"> hi this is the chat app</div>
     )
  }
 
- export default Page;
+ export default AppLayout()(Chat)
