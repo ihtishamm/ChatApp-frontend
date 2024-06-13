@@ -1,9 +1,21 @@
 /* eslint-disable react-refresh/only-export-components */
+import { useParams } from "react-router-dom"
 import AppLayout from "@/layout/AppLayout"
+import Header from "@/Section/Chat/Header";
+import Body from "@/Section/Chat/Body";
+import SendMessage from "@/Section/Chat/SendMessage";
 
 const Chat = () => {
+       const params = useParams();
+        console.log(params)
     return(
-          <div className="hidden lg:block lg:pl-80 h-full h-screen"> hi this is the chat app</div>
+          <div className="hidden lg:block lg:pl-80 h-full h-screen">
+            <div className="h-full flex flex-col">
+                  <Header/>
+                  <Body/>
+                  <SendMessage/>
+            </div>
+          </div>
     )
  }
 
