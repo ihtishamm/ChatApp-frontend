@@ -3,7 +3,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import clsx from "clsx"
 import moment from "moment"
 const MessageBox = ({data}) => {
-    console.log(data)
+  
  const isOpen = data.id === 1
      const container = clsx("flex gap-3 p-4",
         isOpen && "justify-end"
