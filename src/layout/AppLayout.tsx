@@ -8,7 +8,10 @@ import { JSX } from "react/jsx-runtime";
         return (
             <Sidebar>
             <div className="h-full h-screen">
-                 <ConversationsList/>
+                <div className="sm-hidden">
+                <ConversationsList/>
+                </div>
+                
                 <WrappedComponent {...props} />
             </div>
             </Sidebar>

@@ -25,11 +25,18 @@ const useRoutes = () => {
             active: pathname === "/notifications"
         },
         {
+            label:"Friends",
+            href:"/friends",
+            icon: BiNotification,
+            active: pathname === "/friends"
+        },
+
+        {
             label:"Logout",
             href:"/",
             onClick: () => {},
             icon: HiArrowLeftOnRectangle,
-            active: pathname === "/"
+            active: pathname === "/logout"
         }
 
     ],[pathname, conversationId]);
