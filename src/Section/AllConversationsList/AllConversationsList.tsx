@@ -52,7 +52,7 @@ const ConversationsList = () => {
                 <ConversationBox 
                     key={item.id} 
                     data={item}
-                    selected={Number(conversationId) === item.id}
+                    selected={1 === item.id}
                 />
             ))}
          </div>
