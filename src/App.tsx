@@ -1,5 +1,6 @@
 
 import { lazy } from "react"
+import { QueryClient, QueryClientProvider } from  "@tanstack/react-query"
 import { BrowserRouter,Routes,Route } from "react-router-dom"
  const Home = lazy(()=> import("./pages/Home"))
  const Login = lazy(()=> import("./pages/Login"))
@@ -7,8 +8,9 @@ import { BrowserRouter,Routes,Route } from "react-router-dom"
  const Chat = lazy(()=> import("./pages/Chat"))
  const NotFound = lazy(()=> import("./pages/NotFound"))
 function App() {
-
+ const queryClient = new QueryClient()
   return (
+    <QueryClientProvider client={queryClient}>
      <BrowserRouter>
      <Routes>
         <Route path="/" element={<Home/>}/>
@@ -18,6 +20,7 @@ function App() {
         <Route path="*" element={<NotFound/>}/>
       </Routes>
      </BrowserRouter>
+     </QueryClientProvider>
   )
 }
 
