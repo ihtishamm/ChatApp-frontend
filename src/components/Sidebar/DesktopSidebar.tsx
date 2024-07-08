@@ -1,9 +1,9 @@
 import useRoutes from "@/hooks/useRoutes";
 import DesktopSidebarItem from "./DesktopItems";
-
+import { useAuth } from "@/context/AuthProvider";
 const DesktopSidebar = () => {
     const route = useRoutes();
-
+    const { logOut } = useAuth();
 
     return (
         <div className="hidden
@@ -22,6 +22,7 @@ const DesktopSidebar = () => {
                          />
                     ))}
                 </ul>
+                  <button className="pt-10" onClick={() => logOut()}>logout</button>
           </nav>
 
 
