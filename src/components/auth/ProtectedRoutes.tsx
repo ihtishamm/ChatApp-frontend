@@ -1,16 +1,10 @@
-import { Navigate, Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "@/context/AuthProvider";
 
-type ProtectedRoutesProps = {
-    children: React.ReactNode;
-    user: any;
-    redirect?: string;
+const PrivateRoute = () => {
+  const user:any = useAuth();
+  if (!user) return <Navigate to="/login" />;
+  return <Outlet />;
 };
 
-const ProtectedRoutes = ({ children, user, redirect = "/login" }: ProtectedRoutesProps) => {
-    if (!user) {
-        return <Navigate to={redirect} replace />;
-    }
-    return children ? children: <Outlet/>;
-};
-
-export default ProtectedRoutes;
+export default PrivateRoute;
