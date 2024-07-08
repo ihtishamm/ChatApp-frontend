@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 // Define the Zod schema for validation
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters long" })
+  password: z.string().min(6, { message: "Please provide correct password" })
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;

@@ -1,6 +1,7 @@
 import { useContext, createContext, useState, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 // Define the shape of the context value
 interface AuthContextType {
@@ -57,6 +58,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       const response = await axios.post<LoginResponse>(`http://localhost:3000/api/v1/user/login`, data);
       const res = response.data;
       if (res.success) {
+        toast.success("Login successful");
         setUser(res.data.user);
         setToken(res.data.accessToken);
         localStorage.setItem("site", res.data.accessToken);
@@ -65,7 +67,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       }
       throw new Error(res.message);
     } catch (err) {
-      console.error(err);
+      toast.error("Please enter correct email and password");
     }
   };
 
@@ -78,6 +80,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     });
 
       console.log(response.data);
+      if(response.data.success){
+        toast.success("Logout successful");
+      }
     setUser(null);
     setToken("");
     localStorage.removeItem("site");
