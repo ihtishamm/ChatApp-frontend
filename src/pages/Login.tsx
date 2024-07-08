@@ -3,7 +3,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/context/AuthProvider";
 import { useNavigate } from "react-router-dom";
-// Define the Zod schema for validation
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
   password: z.string().min(6, { message: "Please provide correct password" })
@@ -113,7 +112,7 @@ const Page = () => {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Not a member?{" "}
-          <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+          <a  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
             <button onClick={() => navigate("/register")}>Register here</button>
           </a>
         </p>
