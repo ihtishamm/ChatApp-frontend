@@ -1,19 +1,41 @@
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/context/AuthProvider";
+import { useNavigate } from "react-router-dom";
+// Define the Zod schema for validation
+const loginSchema = z.object({
+  email: z.string().email({ message: "Please enter a valid email address" }),
+  password: z.string().min(6, { message: "Password must be at least 6 characters long" })
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+
 const Page = () => {
+  const navigate = useNavigate();
   const auth = useAuth();
   const {
     register,
-    formState: { errors },
+    
+    formState: { errors ,isSubmitting},
+    reset,
     handleSubmit,
-  } = useForm()
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema)
+  });
 
-  const onSubmit = (data) => {
-    auth.login(data);
-    console.log(data);
-  }
+  const onSubmit = (data: LoginFormValues) => {
+    try {
+      auth.login(data);
+       
+    } catch (error) {
+      console.error(error);
+    }
+    reset();
+  };
+
   return (
-    <div className="flex min-h-screen flex-col  lg:flex lg:items-center lg:justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-screen flex-col lg:flex lg:items-center lg:justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <img
           className="mx-auto h-10 w-auto"
@@ -26,35 +48,32 @@ const Page = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)} >
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
+            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
               Email address
             </label>
             <div className="mt-2">
               <input
                 style={{ paddingLeft: "1rem" }}
                 id="email"
-                {...register("email", { required: true })}
-                {...errors.email && {
-                    Error: "Please enter a valid email address"
-                }} 
+                {...register("email")}
                 type="email"
-                autoComplete="email"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                  errors.email ? "ring-red-500" : ""
+                }`}
               />
+              {errors.email && (
+                <p className="mt-2 text-sm text-red-600">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                 Password
               </label>
               <div className="text-sm"></div>
@@ -63,34 +82,39 @@ const Page = () => {
               <input
                 style={{ paddingLeft: "1rem" }}
                 id="password"
-                {...register("password", { required: true })}
-                {...errors.password && {
-                    Error: "Please enter a valid password"
-                }}
+                {...register("password")}
                 type="password"
-                autoComplete="current-password"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
+                  errors.password ? "ring-red-500" : ""
+                }`}
               />
+              {errors.password && (
+                <p className="mt-2 text-sm text-red-600">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
           </div>
 
           <div>
             <button
               type="submit"
+              disabled={isSubmitting}
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Sign in
+              {isSubmitting ? (
+                  "loading.."
+                ) : (
+                  "Sign in"
+                )}
             </button>
           </div>
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Not a member?{" "}
-          <a
-            href="#"
-            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >
-            <button onClick={() => {}}>Register here</button>
+          <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <button onClick={() => navigate("/register")}>Register here</button>
           </a>
         </p>
       </div>
