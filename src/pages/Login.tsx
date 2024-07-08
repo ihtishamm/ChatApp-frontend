@@ -1,6 +1,17 @@
-
+import { useForm } from "react-hook-form"
+import { useAuth } from "@/context/AuthProvider";
 const Page = () => {
-  
+  const auth = useAuth();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm()
+
+  const onSubmit = (data) => {
+    auth.login(data);
+    console.log(data);
+  }
   return (
     <div className="flex min-h-screen flex-col  lg:flex lg:items-center lg:justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -15,7 +26,7 @@ const Page = () => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)} >
           <div>
             <label
               htmlFor="email"
@@ -27,10 +38,12 @@ const Page = () => {
               <input
                 style={{ paddingLeft: "1rem" }}
                 id="email"
-                name="email"
+                {...register("email", { required: true })}
+                {...errors.email && {
+                    Error: "Please enter a valid email address"
+                }} 
                 type="email"
                 autoComplete="email"
-                required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -50,10 +63,12 @@ const Page = () => {
               <input
                 style={{ paddingLeft: "1rem" }}
                 id="password"
-                name="password"
+                {...register("password", { required: true })}
+                {...errors.password && {
+                    Error: "Please enter a valid password"
+                }}
                 type="password"
                 autoComplete="current-password"
-                required
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
