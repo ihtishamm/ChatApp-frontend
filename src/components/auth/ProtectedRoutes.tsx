@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom"
 
 type ProtectedRoutesProps = {
     children: React.ReactNode;
-    user: unknown;
+    user: any;
     redirect?: string;
 };
 
