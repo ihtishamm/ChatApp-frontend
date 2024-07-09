@@ -5,6 +5,7 @@ import avatar from "@/assets/avatar.jpg"
 import { MdAdd, MdOutlineGroupAdd } from "react-icons/md"
 import useConversation from "@/hooks/useConversation";
 import ConversationBox from "./ConversationBox";
+import GroupModel from "@/components/GroupModel";
 
  
 
@@ -25,8 +26,11 @@ const initialValues = [
 
 const ConversationsList = () => {
     const [items] = useState(initialValues)
+    const [isModleOpen, setIsModelOpen] = useState(false)
     const {conversationId, isOpen} = useConversation()
     return (
+        <>
+         <GroupModel isOpen={isModleOpen} onClose={() => setIsModelOpen(false)}/>
         <aside className={
             clsx(`fixed insert-y-0 pb-20 lg:pb:0 lg:left-20 lg:w-80 lg:block overflow-y-auto
                  border-r border-gray-200 
@@ -43,7 +47,10 @@ const ConversationsList = () => {
                 "> 
                   <MdAdd size={20}/>
                 </div>
-                <div className="rounded-full p-2 bg-gray-200 text-gray-600 cursor-pointer hover:opacity-75
+
+                <div
+                    onClick={() => setIsModelOpen(true)}
+                 className="rounded-full p-2 bg-gray-200 text-gray-600 cursor-pointer hover:opacity-75
                     transition">
                 <MdOutlineGroupAdd size={20}/>
                 </div>
@@ -57,6 +64,7 @@ const ConversationsList = () => {
             ))}
          </div>
         </aside>
+        </>
     )
 }
 

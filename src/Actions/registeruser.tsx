@@ -8,3 +8,4 @@ export const registerUser = async (formData: FormData) => {
   });
   return response.data;
 };
+
