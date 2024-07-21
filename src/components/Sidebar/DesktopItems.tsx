@@ -24,7 +24,7 @@ const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({
                 )}
             >
                 <div className="relative flex items-center">
-                    <Icon className="h-6 w-6 shrink-0" />
+                    <Icon className="h-7 w-7 shrink-0" />
                     {badge && (
                         <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                             {badge}
