@@ -14,14 +14,6 @@ const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActi
     const route = useRoutes(activeComponent);
     const { logOut, user } = useAuth();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-    const handleAvatarClick = () => {
-        setIsDialogOpen(true);
-    };
-
-    const handleCloseDialog = () => {
-        setIsDialogOpen(false);
-    };
    
 
     return (
