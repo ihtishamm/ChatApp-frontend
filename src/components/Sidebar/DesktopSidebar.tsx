@@ -16,7 +16,7 @@ const DesktopSidebar = () => {
     const handleCloseDialog = () => {
         setIsDialogOpen(false);
     };
-     if(user === null) return null;
+   
 
     return (
         <div className="hidden
