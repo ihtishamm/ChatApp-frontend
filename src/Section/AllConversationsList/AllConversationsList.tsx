@@ -41,14 +41,7 @@ const ConversationsList = () => {
             <div className="text-2xl font-bold text-nautral-800">
                  Messages
             </div>
-            
-                <div className="rounded-full p-2 bg-gray-200 text-gray-600 cursor-pointer hover:opacity-75
-                    transition
-                "> 
-                  <MdAdd size={20}/>
-                </div>
-
-                <div
+                  <div
                     onClick={() => setIsModelOpen(true)}
                  className="rounded-full p-2 bg-gray-200 text-gray-600 cursor-pointer hover:opacity-75
                     transition">
