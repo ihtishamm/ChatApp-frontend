@@ -4,8 +4,14 @@ import { useAuth } from "@/context/AuthProvider";
 import { HiArrowLeftOnRectangle } from "react-icons/hi2";
 import { useState } from "react";
 import { DrawerDialogDemo } from "../Drawer/ProfileDialog";
-const DesktopSidebar = () => {
-    const route = useRoutes();
+interface DesktopSidebarProps {
+    activeComponent: string;
+    setActiveComponent: (component: string) => void;
+  }
+
+const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActiveComponent}) => {
+
+    const route = useRoutes(activeComponent);
     const { logOut, user } = useAuth();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -29,10 +35,10 @@ const DesktopSidebar = () => {
                 <ul role="list" className="flex flex-col items-center space-y-1">
                     {route.map((item) => (
                          <DesktopSidebarItem key={item.label}
-                          href={item.href}
                           label={item.label} icon={item.icon}
                           active={item.active} 
                           badge={item.badge}
+                          onClick={() => setActiveComponent(item.label.toLowerCase())}
                          />
                     ))}
                 </ul>
