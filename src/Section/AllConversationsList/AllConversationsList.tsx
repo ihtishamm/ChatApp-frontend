@@ -2,7 +2,7 @@
 import clsx from "clsx"
 import { useState } from "react"
 import avatar from "@/assets/avatar.jpg"
-import { MdAdd, MdOutlineGroupAdd } from "react-icons/md"
+import { MdOutlineGroupAdd } from "react-icons/md"
 import useConversation from "@/hooks/useConversation";
 import ConversationBox from "./ConversationBox";
 import GroupModel from "@/components/GroupModel";

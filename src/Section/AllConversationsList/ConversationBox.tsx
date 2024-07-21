@@ -7,7 +7,6 @@ const ConversationBox = ({data, selected}: {data: any, selected: boolean}) => {
 
     const navigate = useNavigate();
 
-     console.log(data)
     const handleConversationClick = (id: any) => {
         startTransition(() => {
             navigate(`/chat/${id}`); // Navigate to the chat/:id route
