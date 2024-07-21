@@ -5,10 +5,11 @@ import MobileSidebar from "./MobileSidebar";
 interface SidebarProps {
   children: ReactNode;
   setActiveComponent: (component: string) => void;
-    activeComponent: string
+    activeComponent: string;
+    showSidebar: boolean;
 }
 
-const Sidebar: FC<SidebarProps> = ({ children, setActiveComponent ,activeComponent}) => {
+const Sidebar: FC<SidebarProps> = ({ children, setActiveComponent ,activeComponent, showSidebar}) => {
   return (
     <div className="h-full h-screen">
       <DesktopSidebar setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
