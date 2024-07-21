@@ -6,10 +6,9 @@ interface SidebarProps {
   children: ReactNode;
   setActiveComponent: (component: string) => void;
     activeComponent: string;
-    showSidebar: boolean;
 }
 
-const Sidebar: FC<SidebarProps> = ({ children, setActiveComponent ,activeComponent, showSidebar}) => {
+const Sidebar: FC<SidebarProps> = ({ children, setActiveComponent ,activeComponent}) => {
   return (
     <div className="h-full h-screen">
       <DesktopSidebar setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
