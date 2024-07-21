@@ -13,6 +13,7 @@ const useRoutes = () => {
     const pathname = location.pathname;
     const { conversationId } = useConversation();
 
+      const friendRequests = 1;
     const routes = useMemo(() => [
         {
             label:"Chat",
@@ -24,7 +25,8 @@ const useRoutes = () => {
             label:"Notifications",
             href:"/notifications",
             icon: IoMdNotifications,
-            active: pathname === "/notifications"
+            active: pathname === "/notifications",
+            badge: friendRequests > 0 ? friendRequests : undefined
         },
         {
             label:"Friends",
