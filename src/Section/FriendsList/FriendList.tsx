@@ -3,7 +3,6 @@ import clsx from "clsx"
 import { useState } from "react"
 import avatar from "@/assets/avatar.jpg"
 import { IoPersonAddSharp } from "react-icons/io5"
-import useConversation from "@/hooks/useConversation";
 import GroupModel from "@/components/GroupModel";
 import FriendsBox from "./FriendsBox";
 
@@ -26,14 +25,13 @@ const initialValues = [
 const FriendsList = () => {
     const [items] = useState(initialValues)
     const [isModleOpen, setIsModelOpen] = useState(false)
-    const {conversationId, isOpen} = useConversation()
     return (
         <>
          <GroupModel isOpen={isModleOpen} onClose={() => setIsModelOpen(false)}/>
         <aside className={
             clsx(`fixed insert-y-0 pb-20 lg:pb:0 lg:left-20 lg:w-80 lg:block overflow-y-auto
-                 border-r border-gray-200 
-            `, isOpen ? "hidden" : "block w-full left-0")
+                 border-r border-gray-200 w-full left-0
+            `)
         }>
          <div className="px-5">
            <div className="flex justify-between mb-4 pt-4">
@@ -51,7 +49,6 @@ const FriendsList = () => {
                 <FriendsBox
                     key={item.id} 
                     data={item}
-                    selected={1 === item.id}
                 />
             ))}
          </div>
