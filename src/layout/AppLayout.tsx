@@ -1,5 +1,5 @@
 
-import FriendsList from "@/Section/FriendsList/FriendList";
+import NotificationsList from "@/Section/Notifications/NotificationsList";
 import Sidebar from "@/components/Sidebar/Sidebar";
 
 import { JSX } from "react/jsx-runtime";
@@ -11,7 +11,7 @@ import { JSX } from "react/jsx-runtime";
             <>
             <Sidebar>
                 {/* <ConversationsList/> */}
-                 <FriendsList/>
+                 <NotificationsList/>
                 <div className="h-full h-screen">
                 <WrappedComponent {...props} />
             </div>
