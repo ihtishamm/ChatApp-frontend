@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { HiChat } from "react-icons/hi";
-import { BiNotification } from "react-icons/bi";
+import { IoMdNotifications } from "react-icons/io";
+import { FaUserFriends } from "react-icons/fa";
 import { HiArrowLeftOnRectangle } from "react-icons/hi2";
 import useConversation from "./useConversation";
 import { useAuth } from "@/context/AuthProvider";
@@ -22,13 +23,13 @@ const useRoutes = () => {
         {
             label:"Notifications",
             href:"/notifications",
-            icon: BiNotification,
+            icon: IoMdNotifications,
             active: pathname === "/notifications"
         },
         {
             label:"Friends",
             href:"/friends",
-            icon: BiNotification,
+            icon: FaUserFriends,
             active: pathname === "/friends"
         },
 
