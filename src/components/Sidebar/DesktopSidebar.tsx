@@ -3,7 +3,7 @@ import DesktopSidebarItem from "./DesktopItems";
 import { useAuth } from "@/context/AuthProvider";
 import { HiArrowLeftOnRectangle } from "react-icons/hi2";
 import { useState } from "react";
-import { DrawerDialogDemo } from "../Drawer/ProfileDialog";
+import { DrawerDialogDemo } from "../Dialogs/ProfileDialog";
 interface DesktopSidebarProps {
     activeComponent: string;
     setActiveComponent: (component: string) => void;

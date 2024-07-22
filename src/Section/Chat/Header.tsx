@@ -2,7 +2,8 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { HiChevronLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import avatar from "@/assets/avatar.jpg"
-import { HiEllipsisHorizontal } from "react-icons/hi2";
+
+import { PersonSheet } from "@/components/Dialogs/PersonSheet";
  
 const Header = () => {
     const user = "online";
@@ -33,10 +34,7 @@ const Header = () => {
                </div>
               </div>
             </div>
-         <HiEllipsisHorizontal size={32}
-          onClick={() => {}}
-        className="cursor-pointer text-sky-500 hover:text-sky-600 transition"
-         />
+          <PersonSheet/>
         </div>
     )
 }
