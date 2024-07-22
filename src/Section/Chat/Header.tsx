@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import avatar from "@/assets/avatar.jpg"
 
 import { ConversationSheet } from "@/components/Dialogs/ConversationSheet";
+import { GroupSheet } from "@/components/Dialogs/GroupSheet";
  
 const Header = () => {
   let isGroup = true;
@@ -35,7 +36,9 @@ const Header = () => {
                </div>
               </div>
             </div>
+            {isGroup ? <GroupSheet isAdmin={true}/> :
           <ConversationSheet/>
+          }
         </div>
     )
 }
