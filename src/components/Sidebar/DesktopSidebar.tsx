@@ -1,9 +1,9 @@
 import useRoutes from "@/hooks/useRoutes";
 import DesktopSidebarItem from "./DesktopItems";
 import { useAuth } from "@/context/AuthProvider";
-import { HiArrowLeftOnRectangle } from "react-icons/hi2";
 import { useState } from "react";
 import { DrawerDialogDemo } from "../Dialogs/ProfileDialog";
+import { LogoutAlertDialog } from "../Dialogs/LogoutAlert";
 interface DesktopSidebarProps {
     activeComponent: string;
     setActiveComponent: (component: string) => void;
@@ -36,9 +36,7 @@ const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActi
                 </ul>
 
                     <div className="flex flex-col items-center mt-auto space-y-4">
-           <div className="pt-10" onClick={() => logOut()}>
-               <HiArrowLeftOnRectangle className="text-gray-500 cursor-pointer h-10 w-10"/>
-                  </div>
+                      <LogoutAlertDialog action={logOut}/>
                    <div className="flex items-center justify-center">
                    <DrawerDialogDemo open={isDialogOpen} setOpen={setIsDialogOpen} user={user} />
                    </div>

@@ -7,7 +7,7 @@ import { ConversationSheet } from "@/components/Dialogs/ConversationSheet";
 import { GroupSheet } from "@/components/Dialogs/GroupSheet";
  
 const Header = () => {
-  let isGroup = true;
+  let isGroup = false;
     const user = "online";
     const statusText = user === "online" ? "online" : "offline"
     return(
@@ -36,7 +36,7 @@ const Header = () => {
                </div>
               </div>
             </div>
-            {isGroup ? <GroupSheet isAdmin={true}/> :
+            {isGroup ? <GroupSheet isAdmin={false}/> :
           <ConversationSheet/>
           }
         </div>
