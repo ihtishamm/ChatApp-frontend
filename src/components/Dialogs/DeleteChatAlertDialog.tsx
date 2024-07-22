@@ -17,7 +17,7 @@ import {
         <AlertDialogTrigger asChild>
         <Button
             variant="destructive" 
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 w-full"
           >
             <HiTrash size={20} />
             Delete Chat
