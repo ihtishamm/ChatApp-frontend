@@ -3,7 +3,7 @@ import clsx from "clsx"
 import { useState } from "react"
 import avatar from "@/assets/avatar.jpg"
 import { IoPersonAddSharp } from "react-icons/io5"
-import GroupModel from "@/components/GroupModel";
+import { FriendRequestDialog } from "@/components/Models/FriendModel"
 import FriendsBox from "./FriendsBox";
 
  
@@ -24,10 +24,8 @@ const initialValues = [
 
 const FriendsList = () => {
     const [items] = useState(initialValues)
-    const [isModleOpen, setIsModelOpen] = useState(false)
     return (
         <>
-         <GroupModel isOpen={isModleOpen} onClose={() => setIsModelOpen(false)}/>
         <aside className={
             clsx(`fixed insert-y-0 pb-20 lg:pb:0 lg:left-20 lg:w-80 lg:block overflow-y-auto
                  border-r border-gray-200 w-full left-0
@@ -38,12 +36,7 @@ const FriendsList = () => {
             <div className="text-2xl font-bold text-nautral-800">
                  Friends
             </div>
-             <div
-                    onClick={() => setIsModelOpen(true)}
-                 className="rounded-full p-2 bg-gray-200 text-gray-600 cursor-pointer hover:opacity-75
-                    transition">
-                <IoPersonAddSharp size={20}/>
-                </div>
+               <FriendRequestDialog/>
            </div>
             {items.map((item) => (
                 <FriendsBox

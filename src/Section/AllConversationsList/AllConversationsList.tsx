@@ -5,7 +5,7 @@ import avatar from "@/assets/avatar.jpg"
 import { MdOutlineGroupAdd } from "react-icons/md"
 import useConversation from "@/hooks/useConversation";
 import ConversationBox from "./ConversationBox";
-import GroupModel from "@/components/GroupModel";
+import GroupModel from "@/components/Models/GroupModel";
 
  
 
@@ -52,7 +52,7 @@ const ConversationsList = () => {
                 <ConversationBox 
                     key={item.id} 
                     data={item}
-                    selected={1 === item.id}
+                    selected={2 === item.id}
                 />
             ))}
          </div>
