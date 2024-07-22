@@ -3,9 +3,10 @@ import { HiChevronLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import avatar from "@/assets/avatar.jpg"
 
-import { PersonSheet } from "@/components/Dialogs/PersonSheet";
+import { ConversationSheet } from "@/components/Dialogs/ConversationSheet";
  
 const Header = () => {
+  let isGroup = true;
     const user = "online";
     const statusText = user === "online" ? "online" : "offline"
     return(
@@ -34,7 +35,7 @@ const Header = () => {
                </div>
               </div>
             </div>
-          <PersonSheet/>
+          <ConversationSheet/>
         </div>
     )
 }
