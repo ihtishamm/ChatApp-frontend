@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,16 +12,45 @@ import { IoPersonAddSharp } from "react-icons/io5";
 import { useSearchUsers } from "@/hooks/useUserApi";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Spinner } from "../Custom/spinner";
+import { useSendRequest } from "@/hooks/useRequest";
+import { toast } from "react-toastify";
+
+const LOCAL_STORAGE_KEY = "sentRequests";
 
 export function FriendRequestDialog() {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-  const [sentRequests, setSentRequests] = useState<number[]>([]);
-  const { data: members, isLoading } = useSearchUsers(debouncedSearchTerm);
+  const [sentRequests, setSentRequests] = useState<string[]>(() => {
+    const savedRequests = localStorage.getItem(LOCAL_STORAGE_KEY);
+    return savedRequests ? JSON.parse(savedRequests) : [];
+  });
 
-  const handleSendRequest = (_id: number) => {
-    setSentRequests((prev) => [...prev, _id]);
+  const { data: members, isLoading } = useSearchUsers(debouncedSearchTerm);
+  const { mutate, isError, isSuccess } = useSendRequest();
+
+  const handleSendRequest = (reqId: string) => {
+    mutate(reqId, {
+      onSuccess: () => {
+        setSentRequests((prev) => {
+          const newRequests = [...prev, reqId];
+          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newRequests));
+          return newRequests;
+        });
+      },
+    });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Request Sent Successfully");
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error("Failed to send request");
+    }
+  }, [isError]);
 
   return (
     <Dialog>
