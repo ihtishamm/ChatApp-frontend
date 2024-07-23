@@ -4,7 +4,7 @@ import { getMyFriends } from "@/Actions/apis/User";
 import { toast } from "react-toastify";
 
 export const useMyFriends = () => {
-    const { data, isError, isFetching } = useQuery({
+    const { data, isError, isFetching, isLoading } = useQuery({
       queryKey: ["myFriends"],
       queryFn: getMyFriends,
     });
@@ -13,5 +13,5 @@ export const useMyFriends = () => {
       toast.error("Failed to fetch Friends");
     }
   
-    return { data, isFetching };
+    return { data, isFetching, isLoading };
   };

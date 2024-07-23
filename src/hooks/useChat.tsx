@@ -4,7 +4,7 @@ import { getMyChats } from "@/Actions/apis/Chat";
 import { toast } from "react-toastify";
 
 export const useMyChats = () => {
-    const { data, isError, isFetching } = useQuery({
+    const { data, isError, isFetching, isLoading } = useQuery({
       queryKey: ["myChats"],
       queryFn: getMyChats,
     });
@@ -13,5 +13,5 @@ export const useMyChats = () => {
       toast.error("Failed to fetch chats");
     }
   
-    return { data, isFetching };
+    return { data, isFetching, isLoading };
   };

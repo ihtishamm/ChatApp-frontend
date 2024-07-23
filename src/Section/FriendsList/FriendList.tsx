@@ -6,7 +6,7 @@ import { useMyFriends } from "@/hooks/useUserApi";
 import { ConversationListSkeleton } from "@/components/Skeltons/ConversationListSkelton";
 
 const FriendsList = () => {
- const {data, isFetching} = useMyFriends()
+ const {data, isFetching, isLoading} = useMyFriends()
     return (
         <>
         <aside className={
@@ -21,6 +21,11 @@ const FriendsList = () => {
             </div>
                <FriendRequestDialog/>
            </div>
+           {isLoading ?  (
+             <div className="space-y-4">
+                <ConversationListSkeleton number={3}/>
+                </div>
+           ): null}
             { isFetching ?  <ConversationListSkeleton number={data?.length || 0}/> :data?.map((item) => (
                 <FriendsBox
                     key={item._id} 

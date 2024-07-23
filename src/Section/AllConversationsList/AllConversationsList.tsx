@@ -16,7 +16,7 @@ import { ConversationListSkeleton } from "@/components/Skeltons/ConversationList
 const ConversationsList = () => {
     const [isModleOpen, setIsModelOpen] = useState(false)
     const {conversationId, isOpen} = useConversation()
-    const {data, isFetching} = useMyChats()
+    const {data, isFetching, isLoading} = useMyChats()
 
     return (
         <>
@@ -38,8 +38,12 @@ const ConversationsList = () => {
                 <MdOutlineGroupAdd size={20}/>
                 </div>
            </div>
-
-            { isFetching ? <ConversationListSkeleton number={data?.length || 0}/> :  data?.map((item) => (
+           {isLoading ?  (
+             <div className="space-y-4">
+                <ConversationListSkeleton number={3}/>
+                </div>
+           ): null}
+            {isFetching? <ConversationListSkeleton number={data?.length || 0}/> :  data?.map((item) => (
                 <ConversationBox 
                     key={item._id} 
                     data={item}
