@@ -1,7 +1,7 @@
 import { lazy, Suspense} from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/auth/ProtectedRoutes";
 import AuthProvider from "./context/AuthProvider";
@@ -14,11 +14,8 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 
 function App() {
-
-
-  const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
+    
       <BrowserRouter>
         <Suspense fallback={<Loader/>}>
           <AuthProvider>
@@ -35,7 +32,6 @@ function App() {
           </AuthProvider>
         </Suspense>
       </BrowserRouter>
-    </QueryClientProvider>
   );
 }
 
