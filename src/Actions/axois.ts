@@ -1,4 +1,8 @@
 import axios from 'axios';
+
+
+
+
 const BASE_URL =import.meta.env.VITE_BACKEND_URL;
         
 export default axios.create({
@@ -6,7 +10,12 @@ export default axios.create({
 });
 
 export const axiosPrivate = axios.create({
+    
     baseURL: BASE_URL,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('site')}`,
+
+     },
     withCredentials: true
 });
