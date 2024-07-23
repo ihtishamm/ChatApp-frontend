@@ -1,26 +1,32 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { useSearchUsers } from "@/hooks/useUserApi";
-
+import { useDebounce } from "@/hooks/useDebounce";
+import { Spinner } from "../Custom/spinner";
 
 export function FriendRequestDialog() {
   const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
   const [sentRequests, setSentRequests] = useState<number[]>([]);
-  const { data:members } = useSearchUsers(searchTerm);
- 
+  const { data: members, isLoading } = useSearchUsers(debouncedSearchTerm);
+
   const handleSendRequest = (_id: number) => {
-    setSentRequests(prev => [...prev, _id]);
+    setSentRequests((prev) => [...prev, _id]);
   };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div
-          className="rounded-full p-2 bg-gray-200 text-gray-600 cursor-pointer hover:opacity-75 transition"
-        >
+        <div className="rounded-full p-2 bg-gray-200 text-gray-600 cursor-pointer hover:opacity-75 transition">
           <IoPersonAddSharp size={20} />
         </div>
       </DialogTrigger>
@@ -32,15 +38,23 @@ export function FriendRequestDialog() {
           type="text"
           placeholder="Search members..."
           value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value)}
           className="mb-4 mt-4"
         />
         <div className="flex flex-col gap-2 max-h-64 overflow-y-auto">
+          {isLoading && (
+            <div className="flex justify-center items-center h-full">
+              <Spinner />
+            </div>
+          )}
           {members?.length === 0 ? (
             <div className="text-gray-500 text-center">No users found</div>
           ) : (
-             members?.map(member => (
-              <div key={member._id} className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100">
+            members?.map((member) => (
+              <div
+                key={member._id}
+                className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-100"
+              >
                 <div className="flex items-center gap-2">
                   <img
                     src={member.avatar}
@@ -51,7 +65,6 @@ export function FriendRequestDialog() {
                 </div>
                 <Button
                   variant="outline"
-                  
                   size="sm"
                   onClick={() => handleSendRequest(member?._id)}
                   disabled={sentRequests.includes(member?._id)}
