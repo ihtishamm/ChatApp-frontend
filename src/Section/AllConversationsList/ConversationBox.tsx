@@ -1,8 +1,10 @@
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import avatar from "@/assets/avatar.jpg"
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 import  {startTransition} from "react";
+import { AvatarFallback } from "@radix-ui/react-avatar";
 const ConversationBox = ({data, selected}: {data: any, selected: boolean}) => {
 
     const navigate = useNavigate();
@@ -17,11 +19,13 @@ const ConversationBox = ({data, selected}: {data: any, selected: boolean}) => {
         <div onClick={() => handleConversationClick(data?.id)}
             className={clsx(`
                 w-full relative flex items-center space-x-4 hover:bg-neutral-100 
-                rounded-lg p-4 cursor-pointer transition
+                rounded-lg p-4 cursor-pointer transition overflow-y-auto
             `,
             selected ? 'bg-neutral-100' : 'bg-white')}>
             <Avatar>
-                <AvatarImage src={data?.avatar?.avatar} />
+                <AvatarImage src={data?.avatar[0]}/>
+                    <AvatarFallback>{avatar}</AvatarFallback>
+                
             </Avatar>
              <div className="min-w-0 flex-1">
                 <div className="focus:outline-none">  
