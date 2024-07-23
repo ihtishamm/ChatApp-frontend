@@ -48,7 +48,7 @@ export function FriendRequestDialog() {
 
   useEffect(() => {
     if (isError) {
-      toast.error("Failed to send request");
+      toast.error("You have already sent a request to this user");
     }
   }, [isError]);
 
