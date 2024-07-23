@@ -5,9 +5,7 @@ import { MdOutlineGroupAdd } from "react-icons/md"
 import useConversation from "@/hooks/useConversation";
 import ConversationBox from "./ConversationBox";
 import GroupModel from "@/components/Models/GroupModel";
-import { useQuery } from "@tanstack/react-query";
-import { getMyChats } from "@/Actions/apis/Chat";
-import { toast } from "react-toastify";
+ import { useMyChats } from "@/hooks/useChat";
 import { ConversationListSkeleton } from "@/components/Skeltons/ConversationListSkelton";
 
  
@@ -18,15 +16,7 @@ import { ConversationListSkeleton } from "@/components/Skeltons/ConversationList
 const ConversationsList = () => {
     const [isModleOpen, setIsModelOpen] = useState(false)
     const {conversationId, isOpen} = useConversation()
-
-
-     const  {data, isError, isFetching} = useQuery({
-        queryKey: ['myChats'],
-        queryFn: getMyChats
-    });
-         
-     
-      isError && toast.error("Failed to fetch chats")
+    const {data, isFetching} = useMyChats()
 
     return (
         <>
