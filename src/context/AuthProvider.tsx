@@ -1,12 +1,14 @@
-import { useContext, createContext, useState, ReactNode } from "react";
+import { useContext, createContext, useState, ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useRecieveRequest } from "@/hooks/useRequest";
 
 // Define the shape of the context value
 interface AuthContextType {
   token: string;
   user: User | null;
+  requestCount: number;
   login: (data: LoginData) => Promise<void>;
   logOut: () => void;
 }
@@ -52,6 +54,22 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string>(localStorage.getItem("site") || "");
   const navigate = useNavigate();
+  const [requestCount, setRequestCount] = useState<number>(() => {
+    const count = localStorage.getItem('requestCount');
+    return count ? parseInt(count, 10) : 0;
+  });
+
+  const { data, error } = useRecieveRequest();
+
+  useEffect(() => {
+    if (error) {
+      console.error("Failed to fetch received requests", error);
+    } else if (data) {
+      const count = data.length || 0;
+      setRequestCount(count);
+      localStorage.setItem('requestCount', count.toString());
+    }
+  }, [data, error]);
 
   const login = async (data: LoginData) => {
     try {
@@ -90,7 +108,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, user, login, logOut }}>
+    <AuthContext.Provider value={{ requestCount, token, user, login, logOut}}>
       {children}
     </AuthContext.Provider>
   );
