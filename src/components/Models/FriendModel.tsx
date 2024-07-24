@@ -26,7 +26,8 @@ export function FriendRequestDialog() {
   });
 
   const { data: members, isLoading } = useSearchUsers(debouncedSearchTerm);
-  const { mutate, isError, isSuccess } = useSendRequest();
+  const { mutate, isError, isSuccess, error } = useSendRequest();
+  console.log("error", isError);
 
   const handleSendRequest = (reqId: string) => {
     mutate(reqId, {
@@ -48,8 +49,9 @@ export function FriendRequestDialog() {
 
   useEffect(() => {
     if (isError) {
-      toast.error("You have already sent a request to this user");
-    }
+            toast.error("Failed to send request");
+         }
+    
   }, [isError]);
 
   return (
