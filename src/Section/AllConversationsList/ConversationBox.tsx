@@ -9,14 +9,14 @@ const ConversationBox = ({data, selected}: {data: any, selected: boolean}) => {
 
     const navigate = useNavigate();
 
-    const handleConversationClick = (id: any) => {
+    const handleConversationClick = (_id: any) => {
         startTransition(() => {
-            navigate(`/chat/${id}`); // Navigate to the chat/:id route
+            navigate(`/chat/${_id}`); // Navigate to the chat/:id route
           });
     };
 
     return (
-        <div onClick={() => handleConversationClick(data?.id)}
+        <div onClick={() => handleConversationClick(data?._id)}
             className={clsx(`
                 w-full relative flex items-center space-x-4 hover:bg-neutral-100 
                 rounded-lg p-4 cursor-pointer transition overflow-y-auto

@@ -3,6 +3,7 @@ import Model from "./Model";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
+
 interface GroupModelProps {
     isOpen: boolean;
     onClose: () => void;
