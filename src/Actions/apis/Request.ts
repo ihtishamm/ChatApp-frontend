@@ -1,3 +1,4 @@
+import { RequestResponse, Request } from '@/Types/User';
 import { axiosPrivate } from '../axois';
 
 export const sendFriendRequest = async (reqId: string) => {
@@ -11,3 +12,14 @@ export const sendFriendRequest = async (reqId: string) => {
     throw new Error('Failed to fetch chats');
   }
 };
+
+
+ export const recieveFriendRequest = async (): Promise<Request[]> => {
+    try {
+        const response = await axiosPrivate.get<RequestResponse>('/request/recieve');
+        return response.data.data;
+    } catch (error) {
+        console.error('Error fetching Request:', error);
+        throw new Error('Failed to fetch  Request');
+    }
+  }
