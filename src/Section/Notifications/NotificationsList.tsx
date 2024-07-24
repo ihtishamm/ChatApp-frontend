@@ -1,24 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NotificationItem from './NotificationsItems';
 import clsx from 'clsx';
 import useConversation from '@/hooks/useConversation';
+import { useRecieveRequest } from '@/hooks/useRequest';
+import { ConversationListSkeleton } from '@/components/Skeltons/ConversationListSkelton';
+import { toast } from 'react-toastify';
 const NotificationsList: React.FC = () => {
     const {conversationId, isOpen} = useConversation()
-    const [requests, setRequests] = useState([
-        { id: '1', name: 'Alice Johnson' },
-        { id: '2', name: 'Bob Smith' },
-        { id: '3', name: 'Charlie Brown' },
-    ]);
+
+      const {data,isLoading, isError} = useRecieveRequest()
+
 
     const handleAccept = (id: string) => {
         // Logic to accept the friend request
-        setRequests(requests.filter(request => request.id !== id));
+         
     };
 
     const handleReject = (id: string) => {
         // Logic to reject the friend request
-        setRequests(requests.filter(request => request.id !== id));
+        
     };
+
+     useEffect(() => {
+        if(isError){
+             toast.error("Failed to fetch friend requests");
+        }
+    },[isError])
 
     return (
 
@@ -35,16 +42,17 @@ const NotificationsList: React.FC = () => {
                  Friend Requests
             </div>
            </div>
-           {requests.length === 0 && (
+           {data?.length === 0 && (
                <div className="text-gray-500  text-center mt-10">
                    No friend requests
                    </div>
                    )}
-           {requests.map(request => (
+                   {isLoading && ( <ConversationListSkeleton number={2}/>)}
+           {data?.map(request => (
                 <NotificationItem
-                    key={request.id}
-                    id={request.id}
-                    name={request.name}
+                    key={request._id}
+                    id={request._id}
+                    name={request?.sender?.fullName}
                     onAccept={handleAccept}
                     onReject={handleReject}
                 />

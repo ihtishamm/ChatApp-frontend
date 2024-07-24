@@ -21,12 +21,15 @@ const FriendsList = () => {
             </div>
                <FriendRequestDialog/>
            </div>
+            {data?.length === 0 && ( <div className="text-gray-500  text-center mt-10">
+            No friends
+                </div>)}
            {isLoading ?  (
              <div className="space-y-4">
                 <ConversationListSkeleton number={3}/>
                 </div>
            ): null}
-            { isFetching ?  <ConversationListSkeleton number={data?.length || 0}/> :data?.map((item) => (
+            { isFetching ?  <ConversationListSkeleton number={data?.length || 0}/> : data?.map((item) => (
                 <FriendsBox
                     key={item._id} 
                     data={item}

@@ -9,3 +9,20 @@ export interface Friend {
     data: Friend[];
     message: string;
   }
+
+
+    export interface Request { 
+        _id: string;
+        status: string;
+        sender: Friend;
+        receiver: string;
+        createdAt: string;
+        updatedAt: string;
+      }
+      
+      export interface RequestResponse {
+        data: Request[];
+        message: string;
+      }
+
+  
