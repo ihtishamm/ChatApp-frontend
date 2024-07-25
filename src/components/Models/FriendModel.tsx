@@ -74,9 +74,8 @@ export function FriendRequestDialog() {
         />
         <div className="flex flex-col gap-2 max-h-64 overflow-y-auto">
           {isLoading && (
-            <div className="flex justify-center items-center h-full">
               <Spinner />
-            </div>
+            
           )}
           {members?.length === 0 ? (
             <div className="text-gray-500 text-center">No users found</div>
