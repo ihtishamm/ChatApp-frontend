@@ -15,8 +15,5 @@ export interface Chat {
 
 
    export interface GetChatDetailsResponse {
-    data: {
-      chat: Chat[];
-    };
-    message: string;
+    data:  Chat[];
   }
