@@ -12,3 +12,11 @@ export interface Chat {
     };
     message: string;
   }
+
+
+   export interface GetChatDetailsResponse {
+    data: {
+      chat: Chat[];
+    };
+    message: string;
+  }

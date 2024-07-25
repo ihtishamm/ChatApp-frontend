@@ -1,6 +1,6 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { getMyChats } from "@/Actions/apis/Chat";
+import { GetChatDetails, getMyChats } from "@/Actions/apis/Chat";
 import { toast } from "react-toastify";
 
 export const useMyChats = () => {
@@ -15,3 +15,17 @@ export const useMyChats = () => {
   
     return { data, isFetching, isLoading };
   };
+
+
+  export const useChatDetails = (chatId: string) => {
+    const { data, isError, isFetching, isLoading } = useQuery({
+      queryKey: ["chatDetails", chatId],
+      queryFn: () => GetChatDetails(chatId),
+    });
+  
+    if (isError) {
+      toast.error("Failed to fetch chat details");
+    }
+  
+    return { data, isFetching, isLoading };
+  }
