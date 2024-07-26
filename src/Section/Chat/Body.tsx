@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import MessageBox from "./MessageBox";
 import avatar from "@/assets/avatar.jpg"
 const initialValues = [
@@ -49,6 +49,11 @@ const initialValues = [
   
 const Body = ({messages}) => {
 
+     useEffect(() => {  
+        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+    ,[messages])
+
       const bottomRef =  useRef<HTMLDivElement>(null)
     const [message] = useState(initialValues)
     return (
@@ -56,7 +61,7 @@ const Body = ({messages}) => {
          {messages.map((msg,i) => (
               <MessageBox key={msg._id} data={msg} isLast={i === messages.length -1} />
          ))}
-            <div ref={bottomRef} className="pt-24"/> 
+            <div ref={bottomRef} className="pt-16"/> 
         </div>
     )
 }
