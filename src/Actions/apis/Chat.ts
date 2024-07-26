@@ -13,7 +13,7 @@ export const getMyChats = async (): Promise<Chat[]> => {
 };
 
 
-export const GetChatDetails = async (chatId: string) => {
+export const GetChatDetails = async (chatId: string): Promise<Chat> => {
   try {
     const response = await axiosPrivate.get<GetChatDetailsResponse>(`/chat/${chatId}`);
     return response.data.data.chat;

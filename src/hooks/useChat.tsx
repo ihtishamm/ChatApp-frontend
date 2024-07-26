@@ -27,5 +27,5 @@ export const useMyChats = () => {
       toast.error("Failed to fetch chat details");
     }
   
-    return { data, isFetching, isLoading };
+    return { data, isFetching, isLoading, isError };
   }
