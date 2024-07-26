@@ -47,14 +47,14 @@ const initialValues = [
   ];
 
   
-const Body = () => {
- 
+const Body = ({messages}) => {
+
       const bottomRef =  useRef<HTMLDivElement>(null)
     const [message] = useState(initialValues)
     return (
         <div className="flex-1 overflow-y-auto">
-         {message.map((msg,i) => (
-              <MessageBox key={msg.id} data={msg} isLast={i === message.length -1} />
+         {messages.map((msg,i) => (
+              <MessageBox key={msg._id} data={msg} isLast={i === messages.length -1} />
          ))}
             <div ref={bottomRef} className="pt-24"/> 
         </div>

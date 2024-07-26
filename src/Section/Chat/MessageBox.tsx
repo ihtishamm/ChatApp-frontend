@@ -4,7 +4,7 @@ import clsx from "clsx"
 import moment from "moment"
 const MessageBox = ({data}) => {
   
- const isOpen = data.id === 1
+ const isOpen = data?.sender?._id === "666f35e17c42732551f19f67"
      const container = clsx("flex gap-3 p-4",
         isOpen && "justify-end"
      )
@@ -23,20 +23,20 @@ const MessageBox = ({data}) => {
 
             <div className={avatar}>
              <Avatar>
-                <AvatarImage src={data?.avatar?.avatar}/>
+                <AvatarImage src={data?.sender?.avatar}/>
              </Avatar>
                 </div>
                 <div className={body}>
                     <div className="flex items-center gap-1">
                         <div text-sm text-gray-500>
-                            { data.sender}
+                            { data?.sender?.fullName}
                             </div> 
                             <div className="text-xs text-gray-400">
-                            {moment(data.timestamp).format('h:mm A')} 
+                            {moment(data?.createdAt).format('h:mm A')} 
                             </div>
                     </div>
                     <div className={message}>
-                      {data.content}
+                      {data?.content}
                     </div>
                     </div>
         </div>

@@ -5,7 +5,6 @@ export interface Chat {
     name: string;
     members: string[];
   }
-  
   export interface GetMyChatsResponse {
     data: {
       transformedChat: Chat[];
@@ -15,5 +14,5 @@ export interface Chat {
 
 
    export interface GetChatDetailsResponse {
-    data:  Chat[];
+    data:Chat[];
   }
