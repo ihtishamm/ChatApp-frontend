@@ -4,6 +4,7 @@ import { useAuth } from "@/context/AuthProvider";
 import { useState } from "react";
 import { DrawerDialogDemo } from "../Dialogs/ProfileDialog";
 import { LogoutAlertDialog } from "../Dialogs/LogoutAlert";
+import { PersonalSheet } from "../Dialogs/personalInfoSheet";
 interface DesktopSidebarProps {
     activeComponent: string;
     setActiveComponent: (component: string) => void;
@@ -38,7 +39,7 @@ const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActi
                     <div className="flex flex-col items-center mt-auto space-y-4">
                       <LogoutAlertDialog action={logOut}/>
                    <div className="flex items-center justify-center">
-                   <DrawerDialogDemo open={isDialogOpen} setOpen={setIsDialogOpen} user={user} />
+                     <PersonalSheet/>
                    </div>
                    </div>
 
