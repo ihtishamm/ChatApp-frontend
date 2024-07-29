@@ -14,7 +14,13 @@ const SocketProvider = ({children}: {children: React.ReactNode}) => {
 
     const socket = useMemo(()  => io("http://localhost:3000",{
          query:{token},
-    withCredentials:true}), []);
+    withCredentials:true,
+    reconnectionAttempts: 5,
+        reconnectionDelay: 1000,
+
+}),
+    
+    []);
     return (
         <SocketContext.Provider value={socket}>
             {children}
