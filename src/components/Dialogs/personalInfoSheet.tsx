@@ -15,7 +15,6 @@ import { useCurrentUser } from "@/hooks/useUserApi";
 
 export function  PersonalSheet() {
    const { data } = useCurrentUser();
-   console.log("data", data)
   return (
     <Sheet>
       <SheetTrigger asChild>
