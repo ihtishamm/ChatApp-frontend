@@ -11,7 +11,7 @@ import { useAuth } from "@/context/AuthProvider";
 const Header = ({UserData}:{UserData:Chat}) => {
 
   const {user} = useAuth();
-  const otherUser = UserData.members.find(member => member._id !== user?._id);
+  const otherUser = UserData?.members.find(member => member._id !== user?._id);
   let isGroup = UserData?.groupChat;
     
    let isAdmin =  UserData?.creator === user?._id;
