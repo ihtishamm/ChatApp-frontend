@@ -27,13 +27,6 @@ const Chat = () => {
     isFetching,
   } = useMessages(params.id || "", page)
 
-
-   const {data:OldData, setData:setOldMessage} = useInfiniteScrollTop(containerRef,oldMessages?.data?.totalPages,
-    page,setPage,
-    oldMessages?.data?.messages
-   )
-
-    console.log("OldData",OldData)
  
   useEffect(() => {
     if (isError) {
@@ -67,17 +60,17 @@ const Chat = () => {
 
   useSocketEvents(socket, eventHandler);
 
-  const allmessages = [ ...OldData, ...messages];
+  const allmessages = [ ...oldMessages?.data?.messages || [], ...messages];
 
   return (
     <div className="h-full h-screen lg:pl-80">
-      {messageLoading ? (
+      {messageLoading  || isFetching ? (
         <Spinner />
       ) : (
         <div className="h-full flex flex-col">
           <Header />
             
-           <Body messages={allmessages} containerRef={containerRef} />
+           <Body messages={allmessages} />
             
 
           <SendMessage

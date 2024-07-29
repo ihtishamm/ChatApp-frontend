@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import MessageBox from "./MessageBox";
  
-const Body = ({messages, containerRef}) => {
+const Body = ({messages}) => {
 
      useEffect(() => {  
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -11,7 +11,7 @@ const Body = ({messages, containerRef}) => {
       const bottomRef =  useRef<HTMLDivElement>(null)
     
     return (
-        <div className="flex-1 overflow-y-auto" ref={containerRef}>
+        <div className="flex-1 overflow-y-auto">
          {messages.map((msg,i) => (
               <MessageBox key={msg._id} data={msg} isLast={i === messages.length -1} />
          ))}
