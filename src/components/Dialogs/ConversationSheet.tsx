@@ -1,5 +1,4 @@
 
-import avatar from "@/assets/avatar.jpg"
 import { HiEllipsisHorizontal } from "react-icons/hi2";
 import {
   Sheet,
@@ -9,11 +8,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { ChatAlertDialog } from "./DeleteChatAlertDialog";
+import { Friend } from "@/Types/User";
 
 
-export function ConversationSheet() {
+export function ConversationSheet({userDetails}:{userDetails:Friend | undefined}) {
   return (
-    <Sheet>
+    <Sheet> 
       <SheetTrigger asChild>
       <HiEllipsisHorizontal size={32}
         className="cursor-pointer text-sky-500 hover:text-sky-600 transition"
@@ -26,12 +26,12 @@ export function ConversationSheet() {
 
             <div className="flex flex-col items-center gap-4 py-4">
             <img
-              src={avatar}
+              src={userDetails?.avatar}
               alt={`${"my"}'s profile`}
               className="w-48 h-48 rounded-full"
             />
             <div className="text-center">
-              <h2 className="text-xl font-bold">Shami</h2>
+              <h2 className="text-xl font-bold">{userDetails?.fullName}</h2>
               <p className="text-gray-500">shami@gmail.com</p>
             </div>
           </div>
