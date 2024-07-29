@@ -1,9 +1,9 @@
 
 import { axiosPrivate } from '../axois';
 
-export const fetchMessages = async ({pageParam}:{pageParam:number}) => {
+export const fetchMessages = async ({chatId, page}:{page:number, chatId:string}) => {
     try{
-        const response = await axiosPrivate.get(`message/669f997490db20718d39fe79?page=${pageParam}`);
+        const response = await axiosPrivate.get(`message/${chatId}?page=${page}`);
         return response.data;
     }
     catch (error) {
