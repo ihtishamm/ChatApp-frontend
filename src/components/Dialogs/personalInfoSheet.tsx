@@ -7,18 +7,20 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { ChatAlertDialog } from "./DeleteChatAlertDialog";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { FaEdit } from "react-icons/fa";
+import { useCurrentUser } from "@/hooks/useUserApi";
 
 
 export function  PersonalSheet() {
+   const { data } = useCurrentUser();
+   console.log("data", data)
   return (
     <Sheet>
       <SheetTrigger asChild>
       <Avatar className="h-[4rem] w-[4rem] object-contain cursor-pointer">
-            <AvatarImage src={avatar } />
+            <AvatarImage src={ data?.avatar || avatar } />
           </Avatar>
       </SheetTrigger>
       <SheetContent className="md:w-[400px]" side="left">
@@ -28,13 +30,13 @@ export function  PersonalSheet() {
 
             <div className="flex flex-col items-center gap-4 py-4">
             <img
-              src={avatar}
+              src={data?.avatar || avatar}
               alt={`${"my"}'s profile`}
               className="w-48 h-48 rounded-full"
             />
             <div className="text-center">
-              <h2 className="text-xl font-bold">Ihtisham Hassan</h2>
-                <p className="text-gray-600">Email@gmail.com</p>
+              <h2 className="text-xl font-bold">{data?.fullName}</h2>
+                <p className="text-gray-600">{data?.email}</p>
             </div>
           </div>
           <hr className="border-t border-gray-200 my-4 w-full" />
