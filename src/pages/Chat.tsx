@@ -6,67 +6,109 @@ import SendMessage from "@/Section/Chat/SendMessage";
 import { getSocketConnection } from "@/context/SocketContext";
 import { useChatDetails } from "@/hooks/useChat";
 import { Spinner } from "@/components/Custom/spinner";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { NEW_MESSAGE } from "@/lib/constants";
 import { useSocketEvents } from "@/hooks/useSocketEvent";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { toast } from "react-toastify";
 import { useMessages } from "@/hooks/useMessages";
 
-
 const Chat = () => {
-    const [message, setMessage] = useState("");
-    const [messages, setMessages] = useState<string[]>([]);
-    const [page, setPage] = useState(1);
-    const params = useParams();
-   const {data,  isLoading,isError } = useChatDetails(params.id || "");
-   const {data:oldMessages, isError:messageError, isLoading:messageLoading, isFetching} = useMessages(params.id || "",page);
-   
-   useEffect(() => {
-    if(isError){
-        toast.error("Failed to fetch chat details");
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<string[]>([]);
+  const [page, setPage] = useState(1);
+  const chatBodyRef = useRef<HTMLDivElement>(null);
+  const params = useParams();
+  const { data, isLoading, isError } = useChatDetails(params.id || "");
+  const {
+    data: oldMessages,
+    isError: messageError,
+    isLoading: messageLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+  } = useMessages(params.id || "");
+
+  console.log(
+    "oldMessages",
+    oldMessages?.pages.flatMap((page) => page?.data?.messages)
+  );
+  useEffect(() => {
+    if (isError) {
+      toast.error("Failed to fetch chat details");
     }
-    }, [isError])
-   
-     const Members = data?.members || [];
-  const  socket = getSocketConnection();
+  }, [isError]);
+
+  const Members = data?.members || [];
+  const socket = getSocketConnection();
 
   useEffect(() => {
     setMessages([]);
-}, [params.id]);
+  }, [params.id]);
 
- 
-  
   const submitHandler = (e: React.FormEvent) => {
-
     e.preventDefault();
     if (message.trim() === "") return;
-    socket.emit(NEW_MESSAGE, { chatId:params.id,members:Members, message});
+    socket.emit(NEW_MESSAGE, { chatId: params.id, members: Members, message });
     setMessage("");
-    }
-     const newMessageHandler = useCallback((data) => {
-        if (data.chatId === params.id) {
+  };
+  const newMessageHandler = useCallback(
+    (data) => {
+      if (data.chatId === params.id) {
         setMessages((prev) => [...prev, data.message]);
-        }
-    } ,[params.id]);
+      }
+    },
+    [params.id]
+  );
 
-       const eventHandler={[NEW_MESSAGE]:newMessageHandler}
+  const eventHandler = { [NEW_MESSAGE]: newMessageHandler };
 
-        useSocketEvents(socket, eventHandler)
+  useSocketEvents(socket, eventHandler);
 
-          const allmessages = [...oldMessages?.data?.messages || [], ...messages];
+  const allmessages = [
+    ...(oldMessages?.pages.flatMap((page) => page?.data?.messages) || []),
+    ...messages,
+  ];
 
-    return (
-        <div className="h-full h-screen lg:pl-80">
+  return (
+    <div className="h-full h-screen lg:pl-80">
+      {messageLoading ? (
+        <Spinner />
+      ) : (
+        <div className="h-full flex flex-col">
+          <Header />
+          <div
+            id="scrollableDiv"
+            style={{
+              height: "100vh",
+              overflow: "auto",
+              display: "flex",
+              flexDirection: "column-reverse",
+            }}
+          >
+            <InfiniteScroll
+              dataLength={allmessages.length}
+              next={fetchNextPage}
+              hasMore={hasNextPage || false}
+              inverse={true}
+              style={{ display: "flex", flexDirection: "column-reverse" }}
+              loader={<Spinner />}
+              endMessage={<p className="text-center">Conversation Started!</p>}
+              scrollableTarget="scrollableDiv"
+            >
+              <Body messages={allmessages} />
+            </InfiniteScroll>
+          </div>
 
-            {messageLoading?  <Spinner/>: 
-            <div className="h-full flex flex-col">
-                <Header />
-                <Body messages={allmessages}/>
-                <SendMessage message={message} setMessage={setMessage} submitHandler={submitHandler} />
-            </div>
-}
+          <SendMessage
+            message={message}
+            setMessage={setMessage}
+            submitHandler={submitHandler}
+          />
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default AppLayout()(Chat);
