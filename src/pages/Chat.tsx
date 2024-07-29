@@ -10,16 +10,15 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { NEW_MESSAGE } from "@/lib/constants";
 import { useSocketEvents } from "@/hooks/useSocketEvent";
 import { toast } from "react-toastify";
-import {useInfiniteScrollTop} from "6pp"
 import { useMessages } from "@/hooks/useMessages";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  const  containerRef = useRef<HTMLDivElement>(null);
   const params = useParams();
   const { data, isLoading, isError } = useChatDetails(params.id || "");
+
   const {
     data: oldMessages,
     isError: messageError,

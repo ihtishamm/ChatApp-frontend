@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRecieveRequest } from "@/hooks/useRequest";
+import { User } from "@/Types/User";
+import { useCurrentUser } from "@/hooks/useUserApi";
 
 // Define the shape of the context value
 interface AuthContextType {
@@ -13,25 +15,10 @@ interface AuthContextType {
   logOut: () => void;
 }
 
-// Define the user object structure
-interface User {
-  _id: string;
-  username: string;
-  email: string;
-  fullName: string;
-  avatar: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-}
-
-// Define the login data structure
 interface LoginData {
   email: string;
   password: string;
 }
-
-// Define the login response structure
 interface LoginResponse {
   statusCode: number;
   data: {
@@ -53,11 +40,13 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string>(localStorage.getItem("site") || "");
+  const {data:userdata} = useCurrentUser();
   const navigate = useNavigate();
   const [requestCount, setRequestCount] = useState<number>(() => {
     const count = localStorage.getItem('requestCount');
     return count ? parseInt(count, 10) : 0;
   });
+
 
   const { data, error } = useRecieveRequest();
 
@@ -77,7 +66,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       const res = response.data;
       if (res.success) {
         toast.success("Login successful");
-        setUser(res.data.user);
         setToken(res.data.accessToken);
         localStorage.setItem("site", res.data.accessToken);
         navigate("/");
@@ -88,6 +76,15 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       toast.error("Please enter correct email and password");
     }
   };
+  useEffect(() => {
+    if (!token || token === undefined || token === null) {
+      navigate("/login");
+    }
+
+   if(userdata){
+    setUser(userdata);
+  }
+  },[userdata, token]);
 
   const logOut = async () => {
 

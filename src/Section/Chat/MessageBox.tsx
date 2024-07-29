@@ -2,9 +2,10 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
 import clsx from "clsx"
 import moment from "moment"
+import { useAuth } from "@/context/AuthProvider"
 const MessageBox = ({data}) => {
-  
- const isOpen = data?.sender?._id === "666f35e17c42732551f19f67"
+  const { user } = useAuth()
+ const isOpen = data?.sender?._id === user?._id
      const container = clsx("flex gap-3 p-4",
         isOpen && "justify-end"
      )
