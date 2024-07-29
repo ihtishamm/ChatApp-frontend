@@ -1,9 +1,12 @@
+import { Friend } from "./User";
+
 export interface Chat {
     _id: string;
     groupChat: boolean;
     avatar: string[];
     name: string;
-    members: string[];
+    creator: string | null;
+    members: Friend[];
   }
   export interface GetMyChatsResponse {
     data: {

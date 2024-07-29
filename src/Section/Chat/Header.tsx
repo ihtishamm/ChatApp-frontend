@@ -5,11 +5,20 @@ import avatar from "@/assets/avatar.jpg"
 
 import { ConversationSheet } from "@/components/Dialogs/ConversationSheet";
 import { GroupSheet } from "@/components/Dialogs/GroupSheet";
+import { Chat } from "@/Types/Chat";
+import { useAuth } from "@/context/AuthProvider";
  
-const Header = () => {
-  let isGroup = true;
-    const user = "online";
-    const statusText = user === "online" ? "online" : "offline"
+const Header = ({UserData}:{UserData:Chat}) => {
+
+  const {user} = useAuth();
+  const otherUser = UserData.members.find(member => member._id !== user?._id);
+  let isGroup = UserData?.groupChat;
+    
+   let isAdmin =  UserData?.creator === user?._id;
+   console.log("isAdmin",isAdmin)
+     
+    const users = "online";
+    const statusText = users === "online" ? "online" : "offline"
     return(
         <div className="
         bg-white w-full flex border-b-[1px] sm:px-4 py-3 px-4 lg:px-6 justify-between items-center shadow-sm
@@ -24,11 +33,11 @@ const Header = () => {
             <HiChevronLeft size={32}/>
              </Link>
               <Avatar className="w-[4rem] h-[4rem]">
-                <AvatarImage src={avatar}/>
+                <AvatarImage src={otherUser?.avatar}/>
               </Avatar>
               <div className="flex flex-col"> 
                     <div>
-                        <h1>Harme West</h1>
+                        <h1>{otherUser?.fullName}</h1>
                     </div>
                     <div className="text-sm font-light 
                text-neutral-500">
@@ -36,8 +45,8 @@ const Header = () => {
                </div>
               </div>
             </div>
-            {isGroup ? <GroupSheet isAdmin={true}/> :
-          <ConversationSheet/>
+            {isGroup ? <GroupSheet isAdmin={isAdmin}/> :
+          <ConversationSheet userDetails={otherUser}/>
           }
         </div>
     )
