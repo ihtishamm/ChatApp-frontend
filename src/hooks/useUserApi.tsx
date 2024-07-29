@@ -1,6 +1,6 @@
 
 import {  useQuery } from "@tanstack/react-query";
-import { getMyFriends, SearchUsers } from "@/Actions/apis/User";
+import { CurrentUser, getMyFriends, SearchUsers } from "@/Actions/apis/User";
 import { toast } from "react-toastify";
 
 export const useMyFriends = () => {
@@ -21,6 +21,20 @@ export const useMyFriends = () => {
         const { data, isError, isFetching, isLoading } = useQuery({
           queryKey: ["searchUsers",{query}],
           queryFn: () => SearchUsers(query),
+        });
+      
+        if (isError) {
+          toast.error("Failed to fetch Users");
+        }
+      
+        return { data, isFetching, isLoading };
+      }
+
+
+    export const useCurrentUser = () => {
+        const { data, isError, isFetching, isLoading } = useQuery({
+          queryKey: ["currentUser"],
+          queryFn: CurrentUser,
         });
       
         if (isError) {

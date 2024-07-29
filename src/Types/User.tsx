@@ -25,4 +25,18 @@ export interface Friend {
         message: string;
       }
 
+
+      export interface User {
+        _id: string;
+        fullName: string;
+        userame: string;
+        email: string;
+        avatar: string;
+        createdAt: string;
+        updatedAt: string;
+      }
+
+       export interface UserResponse {
+        data:User
+       }
   
