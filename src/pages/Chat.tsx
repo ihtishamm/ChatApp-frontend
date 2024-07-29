@@ -9,30 +9,32 @@ import { Spinner } from "@/components/Custom/spinner";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { NEW_MESSAGE } from "@/lib/constants";
 import { useSocketEvents } from "@/hooks/useSocketEvent";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { toast } from "react-toastify";
+import {useInfiniteScrollTop} from "6pp"
 import { useMessages } from "@/hooks/useMessages";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<string[]>([]);
   const [page, setPage] = useState(1);
-  const chatBodyRef = useRef<HTMLDivElement>(null);
+  const  containerRef = useRef<HTMLDivElement>(null);
   const params = useParams();
   const { data, isLoading, isError } = useChatDetails(params.id || "");
   const {
     data: oldMessages,
     isError: messageError,
     isLoading: messageLoading,
-    fetchNextPage,
-    hasNextPage,
     isFetching,
-  } = useMessages(params.id || "");
+  } = useMessages(params.id || "", page)
 
-  console.log(
-    "oldMessages",
-    oldMessages?.pages.flatMap((page) => page?.data?.messages)
-  );
+
+   const {data:OldData, setData:setOldMessage} = useInfiniteScrollTop(containerRef,oldMessages?.data?.totalPages,
+    page,setPage,
+    oldMessages?.data?.messages
+   )
+
+    console.log("OldData",OldData)
+ 
   useEffect(() => {
     if (isError) {
       toast.error("Failed to fetch chat details");
@@ -65,10 +67,7 @@ const Chat = () => {
 
   useSocketEvents(socket, eventHandler);
 
-  const allmessages = [
-    ...(oldMessages?.pages.flatMap((page) => page?.data?.messages) || []),
-    ...messages,
-  ];
+  const allmessages = [ ...OldData, ...messages];
 
   return (
     <div className="h-full h-screen lg:pl-80">
@@ -77,28 +76,9 @@ const Chat = () => {
       ) : (
         <div className="h-full flex flex-col">
           <Header />
-          <div
-            id="scrollableDiv"
-            style={{
-              height: "100vh",
-              overflow: "auto",
-              display: "flex",
-              flexDirection: "column-reverse",
-            }}
-          >
-            <InfiniteScroll
-              dataLength={allmessages.length}
-              next={fetchNextPage}
-              hasMore={hasNextPage || false}
-              inverse={true}
-              style={{ display: "flex", flexDirection: "column-reverse" }}
-              loader={<Spinner />}
-              endMessage={<p className="text-center">Conversation Started!</p>}
-              scrollableTarget="scrollableDiv"
-            >
-              <Body messages={allmessages} />
-            </InfiniteScroll>
-          </div>
+            
+           <Body messages={allmessages} containerRef={containerRef} />
+            
 
           <SendMessage
             message={message}
