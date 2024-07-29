@@ -1,7 +1,6 @@
-import  { IoIosAttach } from "react-icons/io";
 import MessageInput from "./MessageInput";
 import { IoMdSend } from "react-icons/io";
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { FileDropdownMenu } from "@/components/Custom/FilesDropDownMenu";
 
 interface SendMessageProps {
@@ -12,12 +11,19 @@ interface SendMessageProps {
 
 
 const SendMessage:React.FC<SendMessageProps> = ({message,setMessage,submitHandler}) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
     return (
           <div 
           className="
            py-4 px-4 border-t  flex items-center gap-2 lg:gap-4 w-full
           ">
-             <FileDropdownMenu/>
+             <FileDropdownMenu handleFileChange={handleFileChange}/>
            <form className="flex items-center gap-2 lg:gap-4 w-full" onSubmit={submitHandler}> 
              <MessageInput value={message} onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}/>
              <button
