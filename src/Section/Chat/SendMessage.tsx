@@ -2,6 +2,7 @@ import  { IoIosAttach } from "react-icons/io";
 import MessageInput from "./MessageInput";
 import { IoMdSend } from "react-icons/io";
 import { ChangeEvent, FormEvent } from "react";
+import { FileDropdownMenu } from "@/components/Custom/FilesDropDownMenu";
 
 interface SendMessageProps {
   message: string;
@@ -15,7 +16,8 @@ const SendMessage:React.FC<SendMessageProps> = ({message,setMessage,submitHandle
           <div 
           className="
            py-4 px-4 border-t  flex items-center gap-2 lg:gap-4 w-full
-          "><IoIosAttach size={38} className="text-neutral-500"/>
+          ">
+             <FileDropdownMenu/>
            <form className="flex items-center gap-2 lg:gap-4 w-full" onSubmit={submitHandler}> 
              <MessageInput value={message} onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}/>
              <button
