@@ -19,53 +19,29 @@ const MessageBox = ({ data }) => {
     "rounded-lg p-3 shadow-sm"
   );
 
-  const renderAttachment = (attachment) => {
-    const { url, filename } = attachment;
-    const extension = filename.split('.').pop().toLowerCase();
+  const renderAttachment = (attachment:any) => {
 
-    if (['png', 'jpg', 'jpeg', 'gif'].includes(extension)) {
+     
+    const { url, filename } = attachment;
+    const file =   fileFormat(url);
+
+    if (file === "image") {
       return <img src={url} alt={filename} className="max-w-xs max-h-60 rounded-lg" />;
-    } else if (['mp4', 'webm', 'ogg'].includes(extension)) {
+    } else if (file === "video") {
       return (
-        <video controls className="max-w-xs max-h-60 rounded-lg">
-          <source src={url} type={`video/${extension}`} />
-          Your browser does not support the video tag.
-        </video>
+        <video  src={url} controls  className="max-w-xs max-h-60 rounded-lg" preload="none"/>
       );
-    } else if (['mp3', 'wav'].includes(extension)) {
+    } else if (file === "audio") {
       return <audio controls src={url} className="w-full" />;
-    } else {
+    } else  if(file === "file") {
       return (
+        <div className={message}>
         <a href={url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
           <FaFileAlt size={24} />
           {filename}
         </a>
+        </div>
       );
-    }
-  };
-
-  const RenderAttachment = (file, url) => {
-    switch (file) {
-      case "video":
-        return <video src={url} preload="none" className="max-w-xs max-h-60 rounded-lg" controls />;
-
-      case "image":
-        return (
-          <img
-            src={url}
-            alt="Attachment"
-            className="max-w-xs max-h-60 rounded-lg"
-          />
-        );
-
-      case "audio":
-        return <audio src={url} preload="none" controls className="w-full" />;
-
-      default:
-        return <a href={url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-        <FaFileAlt size={24} />
-        {file}
-      </a>;
     }
   };
 
@@ -83,20 +59,15 @@ const MessageBox = ({ data }) => {
         </div>
 
         {data?.attachments?.length > 0 ? (
-          data.attachments.map((attachment) => {
-            const url = attachment.url;
-            const file = fileFormat(url);
-            return (
-              <div key={attachment._id}>
-                <a href={url} target="_blank" rel="noopener noreferrer">
-                  {RenderAttachment(file, url)}
-                </a>
-              </div>
-            );
-          })
+          data.attachments.map((attachment) => (
+            <div key={attachment._id}>
+              {renderAttachment(attachment)}
+            </div>
+          ))
         ) : (
           <div className={message}>{data?.content}</div>
         )}
+
       </div>
     </div>
   );
