@@ -5,8 +5,7 @@ import { useAuth } from "@/context/AuthProvider";
 import { FaFileAlt } from "react-icons/fa";
 import { ImageChange, fileFormat } from "@/lib/helper";
 
-const MessageBox = ({ data }) => {
-  console.log("data", data);
+const MessageBox = ({ data }) => {;
   const { user } = useAuth();
   const isOwn = data?.sender?._id === user?._id;
 
@@ -26,7 +25,8 @@ const MessageBox = ({ data }) => {
     const file =   fileFormat(url);
 
     if (file === "image") {
-      return <img src={url} alt={filename} className="max-w-xs max-h-60 rounded-lg" />;
+      const newUrl = ImageChange(url, 300);
+      return <img src={newUrl} alt={filename} className="max-w-xs max-h-60 rounded-lg" />;
     } else if (file === "video") {
       return (
         <video  src={url} controls  className="max-w-xs max-h-60 rounded-lg" preload="none"/>
