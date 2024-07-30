@@ -4,6 +4,8 @@ import moment from "moment";
 import { useAuth } from "@/context/AuthProvider";
 import { FaFileAlt } from "react-icons/fa";
 import { ImageChange, fileFormat } from "@/lib/helper";
+import { useState } from "react";
+import { Dialog, DialogClose, DialogContent, DialogOverlay, DialogTrigger } from "@/components/ui/dialog";
 
 const MessageBox = ({ data }) => {;
   const { user } = useAuth();
@@ -17,16 +19,35 @@ const MessageBox = ({ data }) => {;
     isOwn ? "bg-sky-500 text-white" : "bg-neutral-100",
     "rounded-lg p-3 shadow-sm"
   );
+    
+  const ImageModal = ({ src, alt }) => {
+    const [open, setOpen] = useState(false);
+  
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <img
+            src={src}
+            alt={alt}
+            className="max-w-xs max-h-60 rounded-lg cursor-pointer"
+            onClick={() => setOpen(true)}
+          />
+        </DialogTrigger>
+        <DialogContent className="w-full  h-auto rounded-lg">
+          <img src={src} alt={alt} className="w-full h-auto  object-contain" />
+        </DialogContent>
+      </Dialog>
+    );
+  };
+
 
   const renderAttachment = (attachment:any) => {
-
-     
-    const { url, filename } = attachment;
+     const { url, filename } = attachment;
     const file =   fileFormat(url);
 
     if (file === "image") {
       const newUrl = ImageChange(url, 300);
-      return <img src={newUrl} alt={filename} className="max-w-xs max-h-60 rounded-lg" />;
+      return <ImageModal src={newUrl} alt={filename} />
     } else if (file === "video") {
       return (
         <video  src={url} controls  className="max-w-xs max-h-60 rounded-lg" preload="none"/>
@@ -44,6 +65,8 @@ const MessageBox = ({ data }) => {;
       );
     }
   };
+
+ 
 
   return (
     <div className={container}>
@@ -67,6 +90,7 @@ const MessageBox = ({ data }) => {;
         ) : (
           <div className={message}>{data?.content}</div>
         )}
+
 
       </div>
     </div>
