@@ -9,7 +9,7 @@ export const sendFriendRequest = async (reqId: string) => {
     return response.data
   } catch (error) {
     console.error('Error fetching chats:', error);
-    throw new Error('Failed to fetch chats');
+    throw new Error('You have already sent Request to this user');
   }
 };
 

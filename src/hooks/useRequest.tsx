@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { acceptFriendRequest, recieveFriendRequest, sendFriendRequest } from "@/Actions/apis/Request";
 
 export const useSendRequest = () => {
-  return useMutation({ mutationFn: sendFriendRequest });
+  return useMutation({ mutationFn:(reqId:string) => sendFriendRequest(reqId) });
 };
 
 export const useRecieveRequest = () => {

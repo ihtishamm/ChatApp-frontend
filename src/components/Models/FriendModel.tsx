@@ -15,44 +15,28 @@ import { Spinner } from "../Custom/spinner";
 import { useSendRequest } from "@/hooks/useRequest";
 import { toast } from "react-toastify";
 
-const LOCAL_STORAGE_KEY = "sentRequests";
+
 
 export function FriendRequestDialog() {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-  const [sentRequests, setSentRequests] = useState<string[]>(() => {
-    const savedRequests = localStorage.getItem(LOCAL_STORAGE_KEY);
-    return savedRequests ? JSON.parse(savedRequests) : [];
-  });
 
   const { data: members, isLoading } = useSearchUsers(debouncedSearchTerm);
-  const { mutate, isError, isSuccess, error } = useSendRequest();
+  const { mutate, isError} = useSendRequest();
   console.log("error", isError);
 
   const handleSendRequest = (reqId: string) => {
     mutate(reqId, {
       onSuccess: () => {
-        setSentRequests((prev) => {
-          const newRequests = [...prev, reqId];
-          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newRequests));
-          return newRequests;
-        });
+        toast.success("Request Sent Successfully");
       },
+       onError: (error) => {
+        toast.error(`${error?.message}`);
+       }
     });
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("Request Sent Successfully");
-    }
-  }, [isSuccess]);
-
-  useEffect(() => {
-    if (isError) {
-            toast.error("Failed to send request");
-         }
-    
-  }, [isError]);
+ 
 
   return (
     <Dialog>
@@ -97,10 +81,9 @@ export function FriendRequestDialog() {
                   variant="outline"
                   size="sm"
                   onClick={() => handleSendRequest(member?._id)}
-                  disabled={sentRequests.includes(member?._id)}
                   className="bg-green"
                 >
-                  {sentRequests.includes(member?._id) ? "Sent" : "Send Request"}
+                  Send Request
                 </Button>
               </div>
             ))
