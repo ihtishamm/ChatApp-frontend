@@ -23,3 +23,13 @@ export const sendFriendRequest = async (reqId: string) => {
         throw new Error('Failed to fetch  Request');
     }
   }
+
+  export const acceptFriendRequest = async (data: { requestId: string; accept: string }) => {
+    try {
+        const response = await axiosPrivate.patch('/request/accept',data);
+        return response.data
+      } catch (error) {
+        console.error('Error accepting Friend Request:', error);
+        throw new Error('Failed to accept Friend Request');
+      }
+  }
