@@ -58,7 +58,7 @@ const Option = (props: OptionProps<OptionType>) => (
   <components.Option {...props}>
     <img
       src={props.data.avatar}
-      alt=""
+      alt="avatar"
       style={{ width: 30, height: 30, borderRadius: '50%', marginRight: 10 }}
     />
     {props.data.label}
