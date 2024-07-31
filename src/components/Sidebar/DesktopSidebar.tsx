@@ -1,8 +1,6 @@
 import useRoutes from "@/hooks/useRoutes";
 import DesktopSidebarItem from "./DesktopItems";
 import { useAuth } from "@/context/AuthProvider";
-import { useState } from "react";
-import { DrawerDialogDemo } from "../Dialogs/ProfileDialog";
 import { LogoutAlertDialog } from "../Dialogs/LogoutAlert";
 import { PersonalSheet } from "../Dialogs/personalInfoSheet";
 interface DesktopSidebarProps {
@@ -13,8 +11,7 @@ interface DesktopSidebarProps {
 const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActiveComponent}) => {
 
     const route = useRoutes(activeComponent);
-    const { logOut, user } = useAuth();
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const { logOut } = useAuth();
    
 
     return (

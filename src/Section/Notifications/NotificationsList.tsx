@@ -34,6 +34,7 @@ const NotificationsList: React.FC = () => {
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['recieveRequest'] });
+          queryClient.invalidateQueries({ queryKey: ['myFriends'] });
           toast.success("Request accepted successfully");
         },
         onError: (error: any) => {

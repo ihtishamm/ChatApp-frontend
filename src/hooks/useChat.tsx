@@ -1,5 +1,5 @@
 
-import { useMutation, useQuery , QueryClient} from "@tanstack/react-query";
+import { useMutation, useQuery} from "@tanstack/react-query";
 import { CreateGroup, GetChatDetails, getMyChats } from "@/Actions/apis/Chat";
 import { toast } from "react-toastify";
 
