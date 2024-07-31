@@ -1,24 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import clsx from "clsx"
-import { useState } from "react"
-import { MdOutlineGroupAdd } from "react-icons/md"
 import useConversation from "@/hooks/useConversation";
 import ConversationBox from "./ConversationBox";
-import GroupModel from "@/components/Models/GroupModel";
  import { useMyChats } from "@/hooks/useChat";
 import { ConversationListSkeleton } from "@/components/Skeltons/ConversationListSkelton";
+import { NewGroupDialog } from "@/components/Models/newGroupModel";
 
   
 
 
 const ConversationsList = () => {
-    const [isModleOpen, setIsModelOpen] = useState(false)
     const {conversationId, isOpen} = useConversation()
     const {data, isFetching, isLoading} = useMyChats()
 
     return (
-        <>
-         <GroupModel isOpen={isModleOpen} onClose={() => setIsModelOpen(false)}/>
+        
         <aside className={
             clsx(`fixed insert-y-0 pb-20 lg:pb:0 lg:left-20 lg:w-80 lg:block overflow-y-auto 
                  border-r border-gray-200  h-[100vh]
@@ -29,28 +25,23 @@ const ConversationsList = () => {
             <div className="text-2xl font-bold text-nautral-800">
                  Messages
             </div>
-                  <div
-                    onClick={() => setIsModelOpen(true)}
-                 className="rounded-full p-2 bg-gray-200 text-gray-600 cursor-pointer hover:opacity-75
-                    transition">
-                <MdOutlineGroupAdd size={20}/>
-                </div>
+                 <NewGroupDialog/>
            </div>
            {isLoading ?  (
              <div className="space-y-4">
                 <ConversationListSkeleton number={3}/>
                 </div>
-           ): null}
-            {isFetching? <ConversationListSkeleton number={data?.length || 0}/> :  data?.map((item) => (
+           ): 
+              data?.map((item) => (
                 <ConversationBox 
                     key={item._id} 
                     data={item}
                     selected={conversationId == item._id}
                 />
-            ))}
+             ))}
          </div>
         </aside>
-        </>
+        
     )
 }
 

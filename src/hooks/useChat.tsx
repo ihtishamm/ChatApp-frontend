@@ -1,6 +1,6 @@
 
-import { useQuery } from "@tanstack/react-query";
-import { GetChatDetails, getMyChats } from "@/Actions/apis/Chat";
+import { useMutation, useQuery , QueryClient} from "@tanstack/react-query";
+import { CreateGroup, GetChatDetails, getMyChats } from "@/Actions/apis/Chat";
 import { toast } from "react-toastify";
 
 export const useMyChats = () => {
@@ -28,4 +28,11 @@ export const useMyChats = () => {
     }
   
     return { data, isFetching, isLoading, isError };
+  }
+
+   export const useCreateGroup = () => {
+    const {mutate, isPending, isSuccess, isError} = useMutation({
+      mutationFn: (data: { name: string; members: string[] }) => CreateGroup(data)
+    });
+    return {mutate, isPending, isSuccess, isError}
   }
