@@ -54,7 +54,7 @@ const NotificationsList: React.FC = () => {
       {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['recieveRequest'] });
-          toast.success("Request rejected successfully");
+          toast.info("Request rejected");
         },
         onError: (error: any) => {
           toast.error(`Error rejecting request`);
