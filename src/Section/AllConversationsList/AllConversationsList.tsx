@@ -27,6 +27,9 @@ const ConversationsList = () => {
             </div>
                  <NewGroupDialog/>
            </div>
+           {data?.length === 0 && ( <div className="text-gray-500  text-center mt-10">
+            Add Friends to start a conversation!
+                </div>)}
            {isLoading ?  (
              <div className="space-y-4">
                 <ConversationListSkeleton number={3}/>
