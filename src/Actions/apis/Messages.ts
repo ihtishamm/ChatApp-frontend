@@ -11,3 +11,13 @@ export const fetchMessages = async ({chatId, pageParam}:{pageParam:number, chatI
         throw new Error('Failed to fetch messages');
     }
 };
+
+export const AttatchmentMessage = async (formData: FormData) => {
+  const response = await axiosPrivate.post(`/message/attachments`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
+};
+

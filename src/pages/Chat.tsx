@@ -6,7 +6,7 @@ import SendMessage from "@/Section/Chat/SendMessage";
 import { getSocketConnection } from "@/context/SocketContext";
 import { useChatDetails } from "@/hooks/useChat";
 import { Spinner } from "@/components/Custom/spinner";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NEW_MESSAGE } from "@/lib/constants";
 import { useSocketEvents } from "@/hooks/useSocketEvent";
 import { toast } from "react-toastify";
@@ -17,14 +17,16 @@ const Chat = () => {
   const [messages, setMessages] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const params = useParams();
-  const { data, isLoading, isError } = useChatDetails(params.id || "");
+
+  const chatId = params.id || "";
+  const { data, isLoading, isError } = useChatDetails(chatId);
 
   const {
     data: oldMessages,
     isError: messageError,
     isLoading: messageLoading,
     isFetching,
-  } = useMessages(params.id || "", page)
+  } = useMessages(chatId, page)
 
  
   useEffect(() => {
@@ -75,6 +77,7 @@ const Chat = () => {
           <SendMessage
             message={message}
             setMessage={setMessage}
+            chatId={chatId}
             submitHandler={submitHandler}
           />
         </div>
