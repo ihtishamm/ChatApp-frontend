@@ -4,13 +4,13 @@ import { HiChat } from "react-icons/hi";
 import { IoMdNotifications } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
 import useConversation from "./useConversation";
-import { useAuth } from "@/context/AuthProvider";
 
 const useRoutes = (activeComponent:string) => {
   const location = useLocation();
   const pathname = location.pathname;
   const { conversationId } = useConversation();
-  const {requestCount} = useAuth()
+
+   let requestCount = 0;
    
   const routes = useMemo(() => [
     {
