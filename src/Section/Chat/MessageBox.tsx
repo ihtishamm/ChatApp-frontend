@@ -5,7 +5,7 @@ import { useAuth } from "@/context/AuthProvider";
 import { FaFileAlt } from "react-icons/fa";
 import { ImageChange, fileFormat } from "@/lib/helper";
 import { useState } from "react";
-import { Dialog, DialogClose, DialogContent, DialogOverlay, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const MessageBox = ({ data }) => {;
   const { user } = useAuth();
