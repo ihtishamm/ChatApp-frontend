@@ -15,10 +15,37 @@ interface AnimatedMultiSelectProps {
 const animatedComponents = makeAnimated();
 
 const customStyles: StylesConfig<OptionType, true> = {
-  option: (provided) => ({
+  control: (provided, state) => ({
     ...provided,
+    borderColor: state.isFocused ? 'black' : provided.borderColor,
+    boxShadow: state.isFocused ? '0 0 0 1px black' : provided.boxShadow,
+    '&:hover': {
+      borderColor: 'black',
+    },
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor: state.isSelected ? 'black' : state.isFocused ? 'lightgray' : provided.backgroundColor,
+    color: state.isSelected ? 'white' : provided.color,
     display: 'flex',
     alignItems: 'center',
+  }),
+  multiValue: (provided) => ({
+    ...provided,
+    backgroundColor: 'black',
+    color: 'white',
+  }),
+  multiValueLabel: (provided) => ({
+    ...provided,
+    color: 'white',
+  }),
+  multiValueRemove: (provided) => ({
+    ...provided,
+    color: 'white',
+    ':hover': {
+      backgroundColor: 'darkgray',
+      color: 'black',
+    },
   }),
   singleValue: (provided) => ({
     ...provided,
