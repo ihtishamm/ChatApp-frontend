@@ -22,3 +22,13 @@ export const GetChatDetails = async (chatId: string): Promise<Chat> => {
     throw new Error('Failed to fetch chat details');
   }
 }
+
+   export const CreateGroup = async (data: { name: string; members: string[] }) => {
+  try {
+    const response = await axiosPrivate.post('/chat/createGroup', data);
+    return response.data
+  } catch (error) {
+    console.error('Error creating group:', error);
+    throw new Error('Failed to create group!');
+  }
+}
