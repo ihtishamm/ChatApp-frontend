@@ -1,3 +1,4 @@
+import { Friend } from "@/Types/User";
 
 const fileFormat = (url = "") => {
   const fileExt = url.split(".").pop();
@@ -26,5 +27,13 @@ const ImageChange = (url = "", width = 100) => {
   return newUrl;
 };
 
+ const truncateStatus = (status: string, maxWords: number) => {
+    const words = status.split(' ');
+    if (words.length <= maxWords) return status;
+    return words.slice(0, maxWords).join(' ') + '...';
+  };
+  const getFirstThreeMemberAvatars = (members: Friend[])  => {
+    return members.slice(0, 3).map(member => member.avatar || "");
+  }
 
-export {fileFormat, ImageChange}
+export {fileFormat, ImageChange, truncateStatus,getFirstThreeMemberAvatars}
