@@ -41,3 +41,22 @@ export const GetChatDetails = async (chatId: string): Promise<Chat> => {
     throw new Error('Failed to fetch group details!');
   }
 }
+
+export const addMembers = async (data: { chatId: string; members: string[] }) => {
+  try {
+      const response = await axiosPrivate.patch('/chat/group/addMember',data);
+      return response.data
+    } catch (error) {
+      throw new Error('Failed to add members!');
+    }
+}
+
+
+export const removeMember = async (data: { chatId: string; userId: string }) => {
+  try {
+      const response = await axiosPrivate.patch('/chat/group/removeMember',data);
+      return response.data
+    } catch (error) {
+      throw new Error('Failed to remove member!');
+    }
+}
