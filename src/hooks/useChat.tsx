@@ -36,3 +36,16 @@ export const useMyChats = () => {
     });
     return {mutate, isPending, isSuccess, isError}
   }
+
+  export const useSingleGroupDetails = (chatId: string) => {
+    const { data, isError, isFetching, isLoading } = useQuery({
+      queryKey: ["singleGroupDetails", chatId],
+      queryFn: () => GetChatDetails(chatId),
+    });
+  
+    if (isError) {
+      toast.error("Failed to fetch group details");
+    }
+  
+    return { data, isFetching, isLoading };
+  }

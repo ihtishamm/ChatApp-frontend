@@ -32,3 +32,12 @@ export const GetChatDetails = async (chatId: string): Promise<Chat> => {
     throw new Error('Failed to create group!');
   }
 }
+
+ export const SingleGroupDetails = async (chatId: string) => {
+  try {
+    const response = await axiosPrivate.get<GetChatDetailsResponse>(`/chat/group/${chatId}`);
+    return response.data
+  } catch (error) {
+    throw new Error('Failed to fetch group details!');
+  }
+}
