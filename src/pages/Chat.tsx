@@ -69,7 +69,7 @@ const Chat = () => {
         <Spinner />
       ) : (
         <div className="h-full flex flex-col">
-          <Header  UserData={data}/>
+          <Header  UserData={data} chatId={chatId}/>
             
            <Body messages={allmessages} />
             

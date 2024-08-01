@@ -1,16 +1,18 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { HiChevronLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import avatar from "@/assets/avatar.jpg"
 
 import { ConversationSheet } from "@/components/Dialogs/ConversationSheet";
 import { GroupSheet } from "@/components/Dialogs/GroupSheet";
 import { Chat } from "@/Types/Chat";
-import { useAuth } from "@/context/AuthProvider";
+import { useCurrentUser } from "@/hooks/useUserApi";
+import { useSingleGroupDetails } from "@/hooks/useChat";
  
-const Header = ({UserData}:{UserData:Chat}) => {
+const Header = ({UserData, chatId}:{UserData:Chat, chatId:string}) => {
 
-  const {user} = useAuth();
+   const {data:user} = useCurrentUser();
+
+   const {data:GroupDetails} = useSingleGroupDetails(chatId);
   const otherUser = UserData?.members.find(member => member._id !== user?._id);
   let isGroup = UserData?.groupChat;
     
@@ -45,7 +47,7 @@ const Header = ({UserData}:{UserData:Chat}) => {
                </div>
               </div>
             </div>
-            {isGroup ? <GroupSheet isAdmin={isAdmin}/> :
+            {isGroup ? <GroupSheet isAdmin={isAdmin} groupDetails={GroupDetails}/> :
           <ConversationSheet userDetails={otherUser}/>
           }
         </div>
