@@ -19,8 +19,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { Chat } from "@/Types/Chat";
+import { Chat} from "@/Types/Chat";
 import { Friend } from "@/Types/User";
+import { getFirstThreeMemberAvatars} from "@/lib/helper";
 
 type GroupSheetProps = {
   isAdmin: boolean;
@@ -34,7 +35,6 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
   const creator = members.find(member => member._id === groupDetails.creator);
   const creatorName = creator ? creator.fullName : "Unknown";
 
-  // Sort members so that the creator is at the top
   const sortedMembers = [...members].sort((a, b) => {
     if (a._id === groupDetails.creator) return -1;
     if (b._id === groupDetails.creator) return 1;
@@ -43,13 +43,7 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
 
   const visibleMembers = showAllMembers ? sortedMembers : sortedMembers.slice(0, 3);
 
-
-
-// const truncateStatus = (status: string, maxWords: number) => {
-//   const words = status.split(' ');
-//   if (words.length <= maxWords) return status;
-//   return words.slice(0, maxWords).join(' ') + '...';
-// };
+  const firstThreeAvatars = getFirstThreeMemberAvatars(members);
 
   return (
     <Sheet>
@@ -65,11 +59,31 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
         </SheetHeader>
         <div>
           <div className="flex flex-col items-center gap-4 py-4">
-            <img
-              src={avatar}
-              alt="Group icon"
-              className="w-48 h-48 rounded-full"
-            />
+            {firstThreeAvatars.length === 3 ? (
+              <div className="relative w-48 h-48">
+                <img
+                  src={firstThreeAvatars[0]}
+                  alt="Member 1"
+                  className="absolute w-24 h-24 rounded-full top-0 left-1/2 transform -translate-x-1/2"
+                />
+                <img
+                  src={firstThreeAvatars[1]}
+                  alt="Member 2"
+                  className="absolute w-24 h-24 rounded-full bottom-0 left-0 transform translate-x-1/4"
+                />
+                <img
+                  src={firstThreeAvatars[2]}
+                  alt="Member 3"
+                  className="absolute w-24 h-24 rounded-full bottom-0 right-0 transform -translate-x-1/4"
+                />
+              </div>
+            ) : (
+              <img
+                src={avatar}
+                alt="Group icon"
+                className="w-48 h-48 rounded-full"
+              />
+            )}
             <div className="text-center">
               <h2 className="text-xl font-bold">{groupDetails?.name}</h2>
               <p className="text-gray-500">
