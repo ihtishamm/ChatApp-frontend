@@ -7,14 +7,18 @@ import { GroupSheet } from "@/components/Dialogs/GroupSheet";
 import { Chat } from "@/Types/Chat";
 import { useCurrentUser } from "@/hooks/useUserApi";
 import { useSingleGroupDetails } from "@/hooks/useChat";
+import AvatarGroup from "@/components/Custom/AvatarGroup";
  
 const Header = ({UserData, chatId}:{UserData:Chat, chatId:string}) => {
 
    const {data:user} = useCurrentUser();
 
+    console.log("userDetails",UserData)
+
    const {data:GroupDetails} = useSingleGroupDetails(chatId);
   const otherUser = UserData?.members.find(member => member._id !== user?._id);
   let isGroup = UserData?.groupChat;
+    const SelectedGroupmembers = UserData?.members?.slice(0,3).map(member => member.fullName).join(", ");
     
    let isAdmin =  UserData?.creator === user?._id;
    console.log("isAdmin",isAdmin)
@@ -34,7 +38,25 @@ const Header = ({UserData, chatId}:{UserData:Chat, chatId:string}) => {
              >
             <HiChevronLeft size={32}/>
              </Link>
-              <Avatar className="w-[4rem] h-[4rem]">
+             {
+              isGroup ? (
+                <>
+                <div>
+                <AvatarGroup avatars={UserData?.members?.map(avatar => avatar.avatar)}/>
+                </div>
+                <div className="flex flex-col"> 
+                    <div>
+                        <h1 className="text-lg">{UserData?.name}</h1>
+                    </div>
+                    <div className="text-sm font-light 
+               text-neutral-500">
+                    {UserData?.members?.length > 3 ? `${SelectedGroupmembers} and more`: SelectedGroupmembers}
+               </div>
+                </div>
+                </>
+              ):(
+                <>
+                <Avatar className="w-[3rem] h-[3rem]">
                 <AvatarImage src={otherUser?.avatar}/>
               </Avatar>
               <div className="flex flex-col"> 
@@ -45,7 +67,15 @@ const Header = ({UserData, chatId}:{UserData:Chat, chatId:string}) => {
                text-neutral-500">
                 {statusText}
                </div>
-              </div>
+               </div>
+               </>
+              )
+             }
+    
+
+
+
+             
             </div>
             {isGroup ? <GroupSheet isAdmin={isAdmin} groupDetails={GroupDetails}/> :
           <ConversationSheet userDetails={otherUser}/>
