@@ -22,6 +22,7 @@ import {
 import { Chat} from "@/Types/Chat";
 import { Friend } from "@/Types/User";
 import { getFirstThreeMemberAvatars} from "@/lib/helper";
+import { NewMemberDialog } from "../Models/addMemberModel";
 
 type GroupSheetProps = {
   isAdmin: boolean;
@@ -102,10 +103,7 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
           <div className="px-4 py-2">
             <h3 className="text-lg font-semibold">Members</h3>
             <div className="flex flex-col gap-2 mt-2">
-              <Button variant="outline" size="sm" className="flex items-center gap-2">
-                <FaUserPlus size={18} />
-                Add member
-              </Button>
+               <NewMemberDialog  chatId={groupDetails?._id} existingMembers={groupDetails}/>
               {visibleMembers.map((member) => {
                 const isMemberAdmin = member._id === groupDetails.creator;
                 return (

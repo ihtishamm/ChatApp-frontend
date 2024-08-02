@@ -26,7 +26,7 @@ interface Friend {
 }
 
 export function NewGroupDialog() {
-  const { data: friends, isLoading } = useMyFriends();
+  const { data: friends} = useMyFriends();
   const { mutate: createGroup } = useCreateGroup();
   const [selectedMembers, setSelectedMembers] = useState<string[]>([]);
   const queryClient = useQueryClient();
