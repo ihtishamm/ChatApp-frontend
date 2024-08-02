@@ -42,9 +42,7 @@ export function ConversationSheet({userDetails}:{userDetails:Friend | undefined}
           </div>
           <hr className="border-t border-gray-200 my-4 w-full" />
           <div className="px-4 py-2">
-  
-  
-             <ChatAlertDialog/>
+             <ChatAlertDialog chatId={userDetails?._id ?? "" }/>
           </div>
           </SheetContent>
     </Sheet>

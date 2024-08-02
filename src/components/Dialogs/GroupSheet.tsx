@@ -195,8 +195,8 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
               </Button>
             )}
 
-            <ChatAlertDialog />
-            <LeaveGroupAlertDialog />
+            <ChatAlertDialog  chatId={groupDetails?._id}  />
+            <LeaveGroupAlertDialog chatId={groupDetails?._id} />
           </div>
         </div>
       </SheetContent>
