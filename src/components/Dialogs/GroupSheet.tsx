@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { HiEllipsisHorizontal } from "react-icons/hi2";
-import { FaEdit, FaUserPlus } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 import avatar from "@/assets/avatar.jpg";
 import { IoIosArrowDown } from "react-icons/io";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Sheet,
   SheetContent,
@@ -23,6 +24,8 @@ import { Chat} from "@/Types/Chat";
 import { Friend } from "@/Types/User";
 import { getFirstThreeMemberAvatars} from "@/lib/helper";
 import { NewMemberDialog } from "../Models/addMemberModel";
+import { useRemoveMembers } from "@/hooks/useChat";
+import { toast } from "react-toastify";
 
 type GroupSheetProps = {
   isAdmin: boolean;
@@ -31,7 +34,8 @@ type GroupSheetProps = {
 
 export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
   const [showAllMembers, setShowAllMembers] = useState(false);
-
+  const {mutate: removeMember} = useRemoveMembers();
+ const queryClient = useQueryClient();
   const members: Friend[] = groupDetails?.members || [];
   const creator = members.find(member => member._id === groupDetails.creator);
   const creatorName = creator ? creator.fullName : "Unknown";
@@ -45,6 +49,24 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
   const visibleMembers = showAllMembers ? sortedMembers : sortedMembers.slice(0, 3);
 
   const firstThreeAvatars = getFirstThreeMemberAvatars(members);
+
+  const handleRemoveMember = (memberId: string) => {
+    const body = {
+      chatId: groupDetails._id,
+      userId: memberId,
+    };
+
+    removeMember(body, {
+      onSuccess: () => {
+        toast.success("Member removed successfully");
+        queryClient.invalidateQueries({ queryKey: ["singleGroupDetails", groupDetails._id] });
+      },
+      onError: () => {
+        toast.error("Failed to remove member");
+      },
+    });
+  };
+
 
   return (
     <Sheet>
@@ -133,8 +155,7 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                          <DropdownMenuItem>Make group admin</DropdownMenuItem>
-                          <DropdownMenuItem>Remove</DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleRemoveMember(member._id)}>Remove</DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     )}
