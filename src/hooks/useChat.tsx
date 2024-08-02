@@ -1,6 +1,6 @@
 
 import { useMutation, useQuery} from "@tanstack/react-query";
-import { CreateGroup, GetChatDetails, addMembers, getMyChats, removeMember } from "@/Actions/apis/Chat";
+import { CreateGroup, GetChatDetails, addMembers, deleteChat, getMyChats, leaveGroup, removeMember } from "@/Actions/apis/Chat";
 import { toast } from "react-toastify";
 
 export const useMyChats = () => {
@@ -64,3 +64,18 @@ export const useMyChats = () => {
        });
         return {mutate, isError, isPending}
   };
+
+
+   export const useLeaveGroup = () => {
+    const {mutate, isError, isPending}  = useMutation({
+       mutationFn: (chatId: string) => leaveGroup(chatId)
+       });
+        return {mutate, isError, isPending}
+  }
+
+   export const useDeleteChat = () => {
+    const {mutate, isError, isPending}  = useMutation({
+       mutationFn: (chatId: string) => deleteChat(chatId)
+       });
+        return {mutate, isError, isPending}
+  }

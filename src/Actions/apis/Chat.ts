@@ -60,3 +60,21 @@ export const removeMember = async (data: { chatId: string; userId: string }) => 
       throw new Error('Failed to remove member!');
     }
 }
+
+export const leaveGroup = async (chatId: string) => {
+  try {
+      const response = await axiosPrivate.delete(`/chat/group/leave/${chatId}`);
+      return response.data
+    } catch (error) {
+      throw new Error('Failed to leave group!');
+    }
+}
+
+export const deleteChat = async (chatId: string) => {
+  try {
+      const response = await axiosPrivate.delete(`/chat/${chatId}`);
+      return response.data
+    } catch (error) {
+      throw new Error('Failed to delete chat!');
+    }
+}
