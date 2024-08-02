@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/sheet"
 import { ChatAlertDialog } from "./DeleteChatAlertDialog";
 import { Friend } from "@/Types/User";
+import { UnfriendAlertDialog } from "./UnfriendDialog";
 
 
-export function ConversationSheet({userDetails}:{userDetails:Friend | undefined}) {
+export function ConversationSheet({userDetails, chatId}:{userDetails:Friend | undefined, chatId:string}) {
   return (
     <Sheet> 
       <SheetTrigger asChild>
@@ -42,7 +43,7 @@ export function ConversationSheet({userDetails}:{userDetails:Friend | undefined}
           </div>
           <hr className="border-t border-gray-200 my-4 w-full" />
           <div className="px-4 py-2">
-             <ChatAlertDialog chatId={userDetails?._id ?? "" }/>
+             <UnfriendAlertDialog   chatId={chatId ?? "" }/>
           </div>
           </SheetContent>
     </Sheet>

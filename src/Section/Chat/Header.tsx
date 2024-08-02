@@ -13,8 +13,6 @@ const Header = ({UserData, chatId}:{UserData:Chat, chatId:string}) => {
 
    const {data:user} = useCurrentUser();
 
-    console.log("userDetails",UserData)
-
    const {data:GroupDetails} = useSingleGroupDetails(chatId);
   const otherUser = UserData?.members.find(member => member._id !== user?._id);
   let isGroup = UserData?.groupChat;
@@ -78,7 +76,7 @@ const Header = ({UserData, chatId}:{UserData:Chat, chatId:string}) => {
              
             </div>
             {isGroup ? <GroupSheet isAdmin={isAdmin} groupDetails={GroupDetails}/> :
-          <ConversationSheet userDetails={otherUser}/>
+          <ConversationSheet userDetails={otherUser} chatId={UserData?._id}/>
           }
         </div>
     )
