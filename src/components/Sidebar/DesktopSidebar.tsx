@@ -6,11 +6,12 @@ import { PersonalSheet } from "../Dialogs/personalInfoSheet";
 interface DesktopSidebarProps {
     activeComponent: string;
     setActiveComponent: (component: string) => void;
+    requestCount: number;
   }
 
-const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActiveComponent}) => {
+const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActiveComponent,requestCount}) => {
 
-    const route = useRoutes(activeComponent);
+    const route = useRoutes(activeComponent,requestCount);
     const { logOut } = useAuth();
    
 
@@ -27,7 +28,7 @@ const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActi
                          <DesktopSidebarItem key={item.label}
                           label={item.label} icon={item.icon}
                           active={item.active} 
-                          badge={item.badge}
+                          badge={item?.badge}
                           onClick={() => setActiveComponent(item.label.toLowerCase())}
                          />
                     ))}

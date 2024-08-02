@@ -4,9 +4,10 @@ import MobileItem from "./MobileItems";
 interface MobileSidebarProps {
   activeComponent: string;
   setActiveComponent: (component: string) => void;
+  requestCount: number;
 }
-const MobileSidebar:React.FC<MobileSidebarProps> = ({activeComponent, setActiveComponent}) => {
-    const route = useRoutes(activeComponent);
+const MobileSidebar:React.FC<MobileSidebarProps> = ({activeComponent, setActiveComponent, requestCount}) => {
+    const route = useRoutes(activeComponent,requestCount);
     const { isOpen } = useConversation();
     if(isOpen) return null;
 
@@ -19,6 +20,7 @@ const MobileSidebar:React.FC<MobileSidebarProps> = ({activeComponent, setActiveC
                 <MobileItem key={item.label}
                 label={item.label}
                 icon={item.icon}
+                badge={item?.badge}
                 onClick={() => setActiveComponent(item.label.toLowerCase())}
                 active={item.active}
                />

@@ -7,11 +7,25 @@ import Sidebar from "@/components/Sidebar/Sidebar";
 import { useLocation } from "react-router-dom";
  import useMediaQuery from "@/hooks/useMediaQuery";
 import { JSX } from "react/jsx-runtime";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { useSocketEvents } from "@/hooks/useSocketEvent";
+import { getSocketConnection } from "@/context/SocketContext";
+import { NEW_REQUEST } from "@/lib/constants";
 
 
  const AppLayout = () => (WrappedComponent: React.ComponentType) => {
+
     return (props: JSX.IntrinsicAttributes) => {
+      const socket = getSocketConnection();
+  const [newFriendRequest, setNewFriendRequest] = useState<number>(0);
+
+   const newFriendRequestHandler =  useCallback(() => {
+    setNewFriendRequest(prevCount => prevCount + 1);
+   }, [])
+
+  const eventHandler = { [NEW_REQUEST]: newFriendRequestHandler };
+
+  useSocketEvents(socket, eventHandler);
         const [activeComponent, setActiveComponent] = useState<string>("conversations");
          const location = useLocation();
          const isMobile = useMediaQuery("(max-width: 768px)");
@@ -33,7 +47,7 @@ import { useState } from "react";
             <> 
              <div className="flex h-full h-screen">
         {!(isChatRoute && isMobile) && (
-          <Sidebar activeComponent={activeComponent} setActiveComponent={setActiveComponent}>
+          <Sidebar activeComponent={activeComponent} setActiveComponent={setActiveComponent} requestCount={newFriendRequest}>
             {renderActiveComponent()}
           </Sidebar>
         )}

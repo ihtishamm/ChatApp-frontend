@@ -6,13 +6,14 @@ interface SidebarProps {
   children: ReactNode;
   setActiveComponent: (component: string) => void;
     activeComponent: string;
+    requestCount: number;
 }
 
-const Sidebar: FC<SidebarProps> = ({ children, setActiveComponent ,activeComponent}) => {
+const Sidebar: FC<SidebarProps> = ({ children, setActiveComponent ,activeComponent,requestCount}) => {
   return (
     <div className="h-full h-screen">
-      <DesktopSidebar setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
-      <MobileSidebar setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
+      <DesktopSidebar setActiveComponent={setActiveComponent} activeComponent={activeComponent} requestCount={requestCount} />
+      <MobileSidebar setActiveComponent={setActiveComponent} activeComponent={activeComponent} requestCount={requestCount} />
       <main className="lg:pl-20 h-screen">
         {children}
       </main>

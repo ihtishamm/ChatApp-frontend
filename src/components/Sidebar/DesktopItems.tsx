@@ -2,9 +2,8 @@ import clsx from "clsx";
 
 interface DesktopSidebarItemProps {
   label: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any;
-  badge: number | undefined;
+  badge?: number;
   active: boolean;
   onClick: () => void;
 }
@@ -26,11 +25,11 @@ const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({
       >
         <div className="relative flex items-center">
           <Icon className="h-7 w-7 shrink-0" />
-          {badge && (
+          {(badge && badge > 0) ? (
             <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
               {badge}
             </span>
-          )}
+          ): null}
         </div>
         <span className="sr-only">{label}</span>
       </div>
@@ -39,4 +38,3 @@ const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({
 };
 
 export default DesktopSidebarItem;
-
