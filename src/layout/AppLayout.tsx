@@ -11,17 +11,19 @@ import { useCallback, useState } from "react";
 import { useSocketEvents } from "@/hooks/useSocketEvent";
 import { getSocketConnection } from "@/context/SocketContext";
 import { NEW_REQUEST } from "@/lib/constants";
+import { useEvents } from "@/context/EventsContext";
 
 
  const AppLayout = () => (WrappedComponent: React.ComponentType) => {
 
     return (props: JSX.IntrinsicAttributes) => {
       const socket = getSocketConnection();
-  const [newFriendRequest, setNewFriendRequest] = useState<number>(0);
+      const {incrementRequestCount} = useEvents()
 
    const newFriendRequestHandler =  useCallback(() => {
-    setNewFriendRequest(prevCount => prevCount + 1);
-   }, [])
+        incrementRequestCount();
+   }, [incrementRequestCount])
+;
 
   const eventHandler = { [NEW_REQUEST]: newFriendRequestHandler };
 
@@ -47,7 +49,8 @@ import { NEW_REQUEST } from "@/lib/constants";
             <> 
              <div className="flex h-full h-screen">
         {!(isChatRoute && isMobile) && (
-          <Sidebar activeComponent={activeComponent} setActiveComponent={setActiveComponent} requestCount={newFriendRequest}>
+          <Sidebar activeComponent={activeComponent} setActiveComponent={setActiveComponent}
+          >
             {renderActiveComponent()}
           </Sidebar>
         )}
