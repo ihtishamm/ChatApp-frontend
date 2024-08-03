@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { on } from "events";
 
 interface DesktopSidebarItemProps {
   label: string;
@@ -17,6 +18,8 @@ const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({
   onClick,
   onBadgeClick
 }) => {
+
+     
   return (
     <li onClick={onClick}>
       <div
@@ -31,7 +34,9 @@ const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({
             <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
             onClick={(e) => {
               e.stopPropagation();
-              onBadgeClick && onBadgeClick();
+                if(onBadgeClick) {
+                  onBadgeClick();
+                }
             }}
             >
               {badge}

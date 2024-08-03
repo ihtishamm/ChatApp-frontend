@@ -1,8 +1,9 @@
-import  { createContext, useContext, useState, ReactNode } from 'react';
+import  { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface EventsContextType {
     requestCount: number;
     incrementRequestCount: () => void;
+    resetRequestCount: () => void;
 }
 
 const EventsContext = createContext<EventsContextType | undefined>(undefined);
@@ -24,9 +25,15 @@ export const EventsProvider: React.FC<EventsProviderProps> = ({ children }) => {
     const incrementRequestCount = () => {
         setRequestCount(prevCount => prevCount + 1);
     };
+    const resetRequestCount = () => {
+        useEffect(() => {
+            setRequestCount(0);
+        }
+    , []); 
+    }
 
     return (
-        <EventsContext.Provider value={{ requestCount, incrementRequestCount }}>
+        <EventsContext.Provider value={{ requestCount, incrementRequestCount, resetRequestCount }}>
             {children}
         </EventsContext.Provider>
     );

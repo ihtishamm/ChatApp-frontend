@@ -11,11 +11,11 @@ interface DesktopSidebarProps {
 
 const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActiveComponent}) => {
 
-    const {requestCount} = useEvents();
+    const {requestCount, resetRequestCount} = useEvents();
     const route = useRoutes(activeComponent,requestCount);
     const { logOut } = useAuth();
 
-    
+
    
 
     return (
@@ -33,7 +33,7 @@ const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActi
                           active={item.active} 
                           badge={item?.badge}
                           onClick={() => setActiveComponent(item.label.toLowerCase())}
-                          // onBadgeClick={item.label === "Notifications" ? setCount : undefined}
+                          onBadgeClick={resetRequestCount}
                          />
                     ))}
                 </ul>
