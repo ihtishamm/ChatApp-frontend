@@ -20,7 +20,7 @@ const SocketProvider = ({children}: {children: React.ReactNode}) => {
 
 }),
     
-    []);
+    [token]);
     return (
         <SocketContext.Provider value={socket}>
             {children}

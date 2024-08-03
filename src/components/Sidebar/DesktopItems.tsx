@@ -6,6 +6,7 @@ interface DesktopSidebarItemProps {
   badge?: number;
   active: boolean;
   onClick: () => void;
+  onBadgeClick?: () => void;
 }
 
 const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({
@@ -14,6 +15,7 @@ const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({
   active,
   badge,
   onClick,
+  onBadgeClick
 }) => {
   return (
     <li onClick={onClick}>
@@ -26,7 +28,12 @@ const DesktopSidebarItem: React.FC<DesktopSidebarItemProps> = ({
         <div className="relative flex items-center">
           <Icon className="h-7 w-7 shrink-0" />
           {(badge && badge > 0) ? (
-            <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+            <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+            onClick={(e) => {
+              e.stopPropagation();
+              onBadgeClick && onBadgeClick();
+            }}
+            >
               {badge}
             </span>
           ): null}

@@ -7,6 +7,7 @@ import PrivateRoute from "./components/auth/ProtectedRoutes";
 import AuthProvider from "./context/AuthProvider";
 import Loader from "./components/Custom/loader";
 import { SocketProvider } from "./context/SocketContext";
+import EventsProvider from "./context/EventsContext";
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
@@ -23,7 +24,7 @@ function App() {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route element={<SocketProvider> <PrivateRoute /></SocketProvider> }>
+              <Route element={<SocketProvider> <EventsProvider> <PrivateRoute /></EventsProvider> </SocketProvider> }>
                 <Route path="/" element={<Home />} />
                 <Route path="/chat/:id" element={<Chat />} />
               </Route>

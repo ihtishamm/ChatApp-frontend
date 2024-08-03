@@ -3,16 +3,19 @@ import DesktopSidebarItem from "./DesktopItems";
 import { useAuth } from "@/context/AuthProvider";
 import { LogoutAlertDialog } from "../Dialogs/LogoutAlert";
 import { PersonalSheet } from "../Dialogs/personalInfoSheet";
+import { useEvents } from "@/context/EventsContext";
 interface DesktopSidebarProps {
     activeComponent: string;
     setActiveComponent: (component: string) => void;
-    requestCount: number;
   }
 
-const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActiveComponent,requestCount}) => {
+const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActiveComponent}) => {
 
+    const {requestCount} = useEvents();
     const route = useRoutes(activeComponent,requestCount);
     const { logOut } = useAuth();
+
+    
    
 
     return (
@@ -30,6 +33,7 @@ const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActi
                           active={item.active} 
                           badge={item?.badge}
                           onClick={() => setActiveComponent(item.label.toLowerCase())}
+                          // onBadgeClick={item.label === "Notifications" ? setCount : undefined}
                          />
                     ))}
                 </ul>

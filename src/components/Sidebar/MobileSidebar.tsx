@@ -1,12 +1,15 @@
 import useConversation from "@/hooks/useConversation";
 import useRoutes from "@/hooks/useRoutes";
 import MobileItem from "./MobileItems";
+import { useEvents
+ } from "@/context/EventsContext";
 interface MobileSidebarProps {
   activeComponent: string;
   setActiveComponent: (component: string) => void;
-  requestCount: number;
 }
-const MobileSidebar:React.FC<MobileSidebarProps> = ({activeComponent, setActiveComponent, requestCount}) => {
+const MobileSidebar:React.FC<MobileSidebarProps> = ({activeComponent, setActiveComponent}) => {
+
+  const {requestCount} = useEvents();
     const route = useRoutes(activeComponent,requestCount);
     const { isOpen } = useConversation();
     if(isOpen) return null;
