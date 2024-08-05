@@ -4,6 +4,9 @@ interface EventsContextType {
     requestCount: number;
     incrementRequestCount: () => void;
     resetRequestCount: () => void;
+    newMessageAlerts: number;
+    incrementNewMessageAlerts: () => void;
+    resetNewMessageAlerts: () => void;
 }
 
 const EventsContext = createContext<EventsContextType | undefined>(undefined);
@@ -21,6 +24,7 @@ interface EventsProviderProps {
 }
 export const EventsProvider: React.FC<EventsProviderProps> = ({ children }) => {
     const [requestCount, setRequestCount] = useState<number>(0);
+    const [newMessageAlerts, setNewMessageAlerts] = useState<number>(0);
 
     const incrementRequestCount = () => {
         setRequestCount(prevCount => prevCount + 1);
@@ -32,8 +36,16 @@ export const EventsProvider: React.FC<EventsProviderProps> = ({ children }) => {
     , []); 
     }
 
+    const incrementNewMessageAlerts = () => {
+        setNewMessageAlerts((prevCount) => prevCount + 1);
+      };
+    
+      const resetNewMessageAlerts = () => {
+        setNewMessageAlerts(0);
+      };
+
     return (
-        <EventsContext.Provider value={{ requestCount, incrementRequestCount, resetRequestCount }}>
+        <EventsContext.Provider value={{ requestCount, incrementRequestCount, resetRequestCount, newMessageAlerts, incrementNewMessageAlerts, resetNewMessageAlerts}}>
             {children}
         </EventsContext.Provider>
     );

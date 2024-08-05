@@ -35,5 +35,10 @@ const ImageChange = (url = "", width = 100) => {
   const getFirstThreeMemberAvatars = (members: Friend[])  => {
     return members.slice(0, 3).map(member => member.avatar || "");
   }
+  const getOrSaveFromStorage = ({ key, value, get }:{key:string, value:() => void, get:string}) => {
+    if (get)
+      return localStorage.getItem(key) ?? null;
+    else localStorage.setItem(key, JSON.stringify(value));
+  };
 
-export {fileFormat, ImageChange, truncateStatus,getFirstThreeMemberAvatars}
+export {fileFormat, ImageChange, truncateStatus,getFirstThreeMemberAvatars,getOrSaveFromStorage}

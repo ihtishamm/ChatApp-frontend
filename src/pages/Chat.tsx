@@ -7,10 +7,11 @@ import { getSocketConnection } from "@/context/SocketContext";
 import { useChatDetails } from "@/hooks/useChat";
 import { Spinner } from "@/components/Custom/spinner";
 import { useCallback, useEffect, useState } from "react";
-import { NEW_MESSAGE } from "@/lib/constants";
+import { NEW_MESSAGE, NEW_MESSAGE_ALERT } from "@/lib/constants";
 import { useSocketEvents } from "@/hooks/useSocketEvent";
 import { toast } from "react-toastify";
 import { useMessages } from "@/hooks/useMessages";
+import { useEvents } from "@/context/EventsContext";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
@@ -19,7 +20,11 @@ const Chat = () => {
   const params = useParams();
 
   const chatId = params.id || "";
-  const { data, isLoading, isError } = useChatDetails(chatId);
+  const { incrementNewMessageAlerts , newMessageAlerts} = useEvents();
+  const { data,  isError } = useChatDetails(chatId);
+
+
+   console.log("newMessageAlerts", newMessageAlerts);
 
   const {
     data: oldMessages,
@@ -42,6 +47,9 @@ const Chat = () => {
     setMessages([]);
   }, [params.id]);
 
+
+
+
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     if (message.trim() === "") return;
@@ -55,9 +63,21 @@ const Chat = () => {
       }
     },
     [params.id]
-  );
+  ); 
 
-  const eventHandler = { [NEW_MESSAGE]: newMessageHandler };
+    const newMessageAlertListener = useCallback(
+    (data) => {
+       if(data.chatId = chatId) return;
+        incrementNewMessageAlerts();
+    },
+    [chatId]
+  );
+       
+
+  const eventHandler = { 
+    [NEW_MESSAGE]: newMessageHandler,
+    [NEW_MESSAGE_ALERT]: newMessageAlertListener,
+   };
 
   useSocketEvents(socket, eventHandler);
 
