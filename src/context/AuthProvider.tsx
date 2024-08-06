@@ -27,8 +27,6 @@ interface LoginResponse {
   message: string;
   success: boolean;
 }
-
-// Define the type for the AuthProvider's children prop
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -38,7 +36,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string>(localStorage.getItem("site") || "");
-  const {data:userdata} = useCurrentUser();
   const navigate = useNavigate();
 
   const login = async (data: LoginData) => {
@@ -57,15 +54,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       toast.error("Please enter correct email and password");
     }
   };
-  useEffect(() => {
-    if (!token || token === undefined || token === null) {
-      navigate("/login");
-    }
-
-   if(userdata){
-    setUser(userdata);
-  }
-  },[userdata, token]);
 
   const logOut = async () => {
 
