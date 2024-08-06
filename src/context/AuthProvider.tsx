@@ -1,22 +1,23 @@
-import { useContext, createContext, useState, ReactNode, useEffect } from "react";
+import { createContext, useState, ReactNode,useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { User } from "@/Types/User";
-import { useCurrentUser } from "@/hooks/useUserApi";
 
-// Define the shape of the context value
 interface AuthContextType {
   token: string;
   user: User | null;
   login: (data: LoginData) => Promise<void>;
   logOut: () => void;
+  refreshToken: () => Promise<string>;
+  setToken: (token: string) => void;
 }
 
 interface LoginData {
   email: string;
   password: string;
 }
+
 interface LoginResponse {
   statusCode: number;
   data: {
@@ -27,6 +28,7 @@ interface LoginResponse {
   message: string;
   success: boolean;
 }
+
 interface AuthProviderProps {
   children: ReactNode;
 }
@@ -36,6 +38,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string>(localStorage.getItem("site") || "");
+  const [refreshToken, setRefreshToken] = useState<string>(localStorage.getItem("refreshToken") || "");
   const navigate = useNavigate();
 
   const login = async (data: LoginData) => {
@@ -45,7 +48,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       if (res.success) {
         toast.success("Login successful");
         setToken(res.data.accessToken);
+        setRefreshToken(res.data.refreshToken);
         localStorage.setItem("site", res.data.accessToken);
+        localStorage.setItem("refreshToken", res.data.refreshToken);
         navigate("/");
         return;
       }
@@ -56,25 +61,41 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const logOut = async () => {
-
-  const response =  await axios.post(`http://localhost:3000/api/v1/user/logout`, {}, {
+    await axios.post(`http://localhost:3000/api/v1/user/logout`, {}, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
-      console.log(response.data);
-      if(response.data.success){
-        toast.success("Logout successful");
-      }
+    toast.success("Logout successful");
     setUser(null);
     setToken("");
+    setRefreshToken("");
     localStorage.removeItem("site");
+    localStorage.removeItem("refreshToken");
     navigate("/login");
   };
 
+  const refreshAccessToken = async (): Promise<string> => {
+    try {
+      const response = await axios.post(`http://localhost:3000/api/v1/user/refresh-token`, {}, {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      });
+
+      const { accessToken } = response.data;
+      setToken(accessToken);
+      localStorage.setItem("site", accessToken);
+      return accessToken;
+    } catch (error) {
+      logOut();
+      throw error;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ token, user, login, logOut}}>
+    <AuthContext.Provider value={{ token, user, login, logOut, refreshToken: refreshAccessToken, setToken }}>
       {children}
     </AuthContext.Provider>
   );
@@ -89,5 +110,3 @@ export const useAuth = (): AuthContextType => {
   }
   return context;
 };
-
-

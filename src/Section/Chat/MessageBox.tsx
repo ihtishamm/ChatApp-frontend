@@ -1,14 +1,14 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import clsx from "clsx";
 import moment from "moment";
-import { useAuth } from "@/context/AuthProvider";
+import { useCurrentUser } from "@/hooks/useUserApi";
 import { FaFileAlt } from "react-icons/fa";
 import { ImageChange, fileFormat } from "@/lib/helper";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const MessageBox = ({ data }) => {;
-  const { user } = useAuth();
+   const { data:user } = useCurrentUser();
   const isOwn = data?.sender?._id === user?._id;
 
   const container = clsx("flex gap-3 p-4", isOwn && "justify-end");
