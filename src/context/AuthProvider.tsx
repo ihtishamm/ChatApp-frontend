@@ -9,7 +9,6 @@ interface AuthContextType {
   user: User | null;
   login: (data: LoginData) => Promise<void>;
   logOut: () => void;
-  refreshToken: () => Promise<string>;
   setToken: (token: string) => void;
 }
 
@@ -76,26 +75,26 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     navigate("/login");
   };
 
-  const refreshAccessToken = async (): Promise<string> => {
-    try {
-      const response = await axios.post(`http://localhost:3000/api/v1/user/refresh-token`, {}, {
-        headers: {
-          Authorization: `Bearer ${refreshToken}`,
-        },
-      });
+  // const refreshAccessToken = async (): Promise<string> => {
+  //   try {
+  //     const response = await axios.post(`http://localhost:3000/api/v1/user/refresh-token`, {}, {
+  //       headers: {
+  //         Authorization: `Bearer ${refreshToken}`,
+  //       },
+  //     });
 
-      const { accessToken } = response.data;
-      setToken(accessToken);
-      localStorage.setItem("site", accessToken);
-      return accessToken;
-    } catch (error) {
-      logOut();
-      throw error;
-    }
-  };
+  //     const { accessToken } = response.data;
+  //     setToken(accessToken);
+  //     localStorage.setItem("site", accessToken);
+  //     return accessToken;
+  //   } catch (error) {
+  //     logOut();
+  //     throw error;
+  //   }
+  // };
 
   return (
-    <AuthContext.Provider value={{ token, user, login, logOut, refreshToken: refreshAccessToken, setToken }}>
+    <AuthContext.Provider value={{ token, user, login, logOut, setToken }}>
       {children}
     </AuthContext.Provider>
   );
