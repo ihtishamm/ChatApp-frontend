@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import avatarPlaceholder from '@/assets/avatar.jpg';
 import { FiCamera } from 'react-icons/fi';
 import { toast } from 'react-toastify';
-import { registerUser } from '@/Actions/registeruser';
+import { registerUser } from '@/Actions/apis/User';
 
 const registerSchema = z.object({
   name: z.string().nonempty({ message: 'Name is required' }),
