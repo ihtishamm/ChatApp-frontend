@@ -110,7 +110,7 @@ export function NewGroupDialog() {
         </div>
         <DialogFooter>
           <DialogClose>
-            <Button variant="outline" type="button">Cancel</Button>
+            <Button variant="outline" type="button" className="w-full mt-2 md:mt-0">Cancel</Button>
           </DialogClose>
           <Button variant="default" className="color-red" onClick={handleCreateGroup}>
             Create
