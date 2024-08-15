@@ -25,7 +25,9 @@ import { Friend } from "@/Types/User";
 import { getFirstThreeMemberAvatars} from "@/lib/helper";
 import { NewMemberDialog } from "../Models/addMemberModel";
 import { useRemoveMembers } from "@/hooks/useChat";
-import { toast } from "react-toastify";
+import AvatarGroup from "@/components/Custom/AvatarGroup";
+import { toast } from "react-toastify"
+import GroupAvatar from "../Custom/GroupAvatars";
 
 type GroupSheetProps = {
   isAdmin: boolean;
@@ -82,31 +84,9 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
         </SheetHeader>
         <div>
           <div className="flex flex-col items-center gap-4 py-4">
-            {firstThreeAvatars.length === 3 ? (
-              <div className="relative w-24 h-24">
-                <img
-                  src={firstThreeAvatars[0]}
-                  alt="Member 1"
-                  className="absolute w-24 h-24 rounded-full top-0 left-1/2 transform -translate-x-1/2"
-                />
-                <img
-                  src={firstThreeAvatars[1]}
-                  alt="Member 2"
-                  className="absolute w-24 h-24 rounded-full bottom-0 left-0 transform translate-x-1/4"
-                />
-                <img
-                  src={firstThreeAvatars[2]}
-                  alt="Member 3"
-                  className="absolute w-24 h-24 rounded-full bottom-0 right-0 transform -translate-x-1/4"
-                />
-              </div>
-            ) : (
-              <img
-                src={avatar}
-                alt="Group icon"
-                className="w-48 h-48 rounded-full"
-              />
-            )}
+
+               <GroupAvatar avatars={firstThreeAvatars} />
+           
             <div className="text-center">
               <h2 className="text-xl font-bold">{groupDetails?.name}</h2>
               <p className="text-gray-500">
