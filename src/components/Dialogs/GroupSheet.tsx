@@ -117,7 +117,7 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
           <hr className="border-t border-gray-200 my-4 w-full" />
           <div className="px-4 py-2">
             <h3 className="text-lg font-semibold">About</h3>
-            <p className="text-gray-700 mt-2">Here all the dudes are programmers</p>
+            <p className="text-gray-700 mt-2">{`Welcome to ${groupDetails?.name}.Feel free to jump in, share your thoughts, and enjoy the conversation!`}</p>
             <p className="text-gray-500 mt-3">Created by {creatorName}</p>
           </div>
           <hr className="border-t border-gray-200 my-4 w-full" />
@@ -188,12 +188,12 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
           <hr className="border-t border-gray-200 my-4 w-full" />
 
           <div className="flex gap-2 mt-2 flex-col">
-            {isAdmin && (
+            {/* {isAdmin && (
               <Button variant="outline" size="sm">
                 <FaEdit className="mr-2" size={18} />
                 Edit Group Info
               </Button>
-            )}
+            )} */}
             <LeaveGroupAlertDialog chatId={groupDetails?._id} />
           </div>
         </div>
