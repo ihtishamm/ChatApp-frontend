@@ -41,7 +41,7 @@ export function  PersonalSheet() {
           <hr className="border-t border-gray-200 my-4 w-full" />
           <div className="px-4 py-2">
             <h3 className="text-lg font-semibold">About</h3>
-            <p className="text-gray-600 mt-2">This is all about my life</p>
+            <p className="text-gray-600 mt-2">{data?.about}</p>
           </div>
           <div className="px-4 py-2 w-full">
          <Button variant="outline" size="sm" className="flex items-center gap-2 w-full">

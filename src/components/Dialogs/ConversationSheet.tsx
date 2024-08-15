@@ -33,13 +33,13 @@ export function ConversationSheet({userDetails, chatId}:{userDetails:Friend | un
             />
             <div className="text-center">
               <h2 className="text-xl font-bold">{userDetails?.fullName}</h2>
-              <p className="text-gray-500">shami@gmail.com</p>
+              <p className="text-gray-500">{userDetails?.email}</p>
             </div>
           </div>
           <hr className="border-t border-gray-200 my-4 w-full" />
           <div className="px-4 py-2">
             <h3 className="text-lg font-semibold">About</h3>
-            <p className="text-gray-600 mt-2">This is all about my life</p>
+            <p className="text-gray-600 mt-2">{userDetails?.about}</p>
           </div>
           <hr className="border-t border-gray-200 my-4 w-full" />
           <div className="px-4 py-2">

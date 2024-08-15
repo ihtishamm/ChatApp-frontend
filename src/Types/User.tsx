@@ -2,6 +2,8 @@ export interface Friend {
     _id: string;
     fullName: string;
     avatar: string;
+    email?:string;
+    about:string;
   }
   
   
@@ -32,6 +34,7 @@ export interface Friend {
         userame: string;
         email: string;
         avatar: string;
+        about:string;
         createdAt: string;
         updatedAt: string;
       }
