@@ -28,7 +28,6 @@ const Chat = () => {
 
   const {
     data: oldMessages,
-    isError: messageError,
     isLoading: messageLoading,
     isFetching,
   } = useMessages(chatId, page)
@@ -57,7 +56,7 @@ const Chat = () => {
     setMessage("");
   };
   const newMessageHandler = useCallback(
-    (data) => {
+    (data: { chatId: string | undefined; message: string; }) => {
       if (data.chatId === params.id) {
         setMessages((prev) => [...prev, data.message]);
       }
@@ -66,7 +65,7 @@ const Chat = () => {
   ); 
 
     const newMessageAlertListener = useCallback(
-    (data) => {
+    (data: { chatId: string; }) => {
        if(data.chatId = chatId) return;
         incrementNewMessageAlerts();
     },
@@ -84,12 +83,12 @@ const Chat = () => {
   const allmessages = [ ...oldMessages?.data?.messages || [], ...messages];
 
   return (
-    <div className="h-full h-screen lg:pl-80">
+    <div className=" h-screen lg:pl-80">
       {messageLoading  || isFetching ? (
         <Spinner />
       ) : (
         <div className="h-full flex flex-col">
-          <Header  UserData={data} chatId={chatId}/>
+          {data && <Header UserData={data} chatId={chatId} />}
             
            <Body messages={allmessages} />
             

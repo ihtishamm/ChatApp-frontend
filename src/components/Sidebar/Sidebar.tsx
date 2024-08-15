@@ -10,7 +10,7 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ children, setActiveComponent ,activeComponent}) => {
   return (
-    <div className="h-full h-screen">
+    <div className=" h-screen">
       <DesktopSidebar setActiveComponent={setActiveComponent} activeComponent={activeComponent}  />
       <MobileSidebar setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
       <main className="lg:pl-20 h-screen">
