@@ -47,14 +47,14 @@ import { useEvents } from "@/context/EventsContext";
           const isChatRoute = location.pathname.startsWith("/chat/");
         return (
             <> 
-             <div className="flex h-full h-screen">
+             <div className="flex h-screen">
         {!(isChatRoute && isMobile) && (
           <Sidebar activeComponent={activeComponent} setActiveComponent={setActiveComponent}
           >
             {renderActiveComponent()}
           </Sidebar>
         )}
-        <div className={`flex-1 ${isChatRoute ? '' : ""} h-full h-screen`}>
+        <div className={`flex-1 ${isChatRoute ? '' : ""}  h-screen`}>
           <WrappedComponent {...props} />
         </div>
       </div>
