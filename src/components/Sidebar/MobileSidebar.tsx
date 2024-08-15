@@ -9,7 +9,7 @@ interface MobileSidebarProps {
 }
 const MobileSidebar:React.FC<MobileSidebarProps> = ({activeComponent, setActiveComponent}) => {
 
-  const {requestCount} = useEvents();
+  const {requestCount, resetRequestCount} = useEvents();
     const route = useRoutes(activeComponent,requestCount);
     const { isOpen } = useConversation();
     if(isOpen) return null;
@@ -26,6 +26,7 @@ const MobileSidebar:React.FC<MobileSidebarProps> = ({activeComponent, setActiveC
                 badge={item?.badge}
                 onClick={() => setActiveComponent(item.label.toLowerCase())}
                 active={item.active}
+                onBadgeClick={resetRequestCount}
                />
              ))}
 

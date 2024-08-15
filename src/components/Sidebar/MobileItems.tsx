@@ -8,11 +8,12 @@ interface MobileidebarItemProps {
     badge?: number;
     active: boolean;
     onClick: () => void;
+    onBadgeClick?: () => void;
    
 }
 
 const MobileItem: React.FC<MobileidebarItemProps> = ({
-     icon: Icon, active,onClick,  badge
+     icon: Icon, active,onClick, onBadgeClick, label, badge
 }) => {
     return (
         <div onClick={onClick}
@@ -25,11 +26,17 @@ const MobileItem: React.FC<MobileidebarItemProps> = ({
             active ? "bg-gray-100 text-black" : "")
          }>
             <Icon className="h-6 w-6"/>
-            { badge && (
-            <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+            {(badge && badge > 0) ? (
+            <span className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center"
+            onClick={(e) => {
+              e.stopPropagation();
+                if(onBadgeClick) {
+                  onBadgeClick();
+                }
+            }}>
               {badge}
             </span>
-          )}
+          ):null}
             </div>  
     
     )
