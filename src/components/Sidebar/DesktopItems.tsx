@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { on } from "events";
 
 interface DesktopSidebarItemProps {
   label: string;
