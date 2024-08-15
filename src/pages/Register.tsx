@@ -9,6 +9,7 @@ import avatarPlaceholder from '@/assets/avatar.jpg';
 import { FiCamera } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import { registerUser } from '@/Actions/apis/User';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const registerSchema = z.object({
   name: z.string().nonempty({ message: 'Name is required' }),
@@ -22,6 +23,7 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -39,6 +41,7 @@ const RegisterPage = () => {
       setValue('avatar', file);
     }
   };
+  
 
   const onSubmit = async (data: RegisterFormValues) => {
     const formData = new FormData();
@@ -64,20 +67,10 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col lg:flex lg:items-center lg:justify-center px-6 py-12 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img
-          className="mx-auto h-10 w-auto"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-          alt="Your Company"
-        />
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Create your account
-        </h2>
-      </div>
+    <div className="flex min-h-screen flex-col lg:flex lg:items-center lg:justify-center px-6 py-2 lg:px-8">
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
           <div className="relative w-[10rem] m-auto">
             <Avatar className="w-[10rem] h-[10rem] object-contain">
               <AvatarImage src={avatarPreview || avatarPlaceholder} />
@@ -140,14 +133,21 @@ const RegisterPage = () => {
             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
               Password
             </label>
-            <div className="mt-2">
+            <div className= "relative  mt-2">
               <input
                 style={{ paddingLeft: '1rem' }}
                 id="password"
                 {...register('password')}
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.password ? 'ring-red-500' : ''}`}
               />
+                 <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+              </button>
               {errors.password && (
                 <p className="mt-2 text-sm text-red-600">
                   {errors.password.message}
