@@ -5,6 +5,7 @@ import { FaEdit } from "react-icons/fa";
 import avatar from "@/assets/avatar.jpg";
 import { IoIosArrowDown } from "react-icons/io";
 import { useQueryClient } from "@tanstack/react-query";
+import {truncateStatus} from "@/lib/helper"
 import {
   Sheet,
   SheetContent,
@@ -82,7 +83,7 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
         <div>
           <div className="flex flex-col items-center gap-4 py-4">
             {firstThreeAvatars.length === 3 ? (
-              <div className="relative w-48 h-48">
+              <div className="relative w-24 h-24">
                 <img
                   src={firstThreeAvatars[0]}
                   alt="Member 1"
@@ -140,7 +141,7 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
                       />
                       <div>
                         <span className="text-gray-700">{member?.fullName}</span>
-                        <p className="text-gray-500 text-sm">hii there.....</p>
+                        <p className="text-gray-500 text-sm">{truncateStatus( member?.about,4)}</p>
                       </div>
                     </div>
                     {isMemberAdmin && (
