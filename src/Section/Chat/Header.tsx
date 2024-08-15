@@ -75,7 +75,7 @@ const Header = ({UserData, chatId}:{UserData:Chat, chatId:string}) => {
 
              
             </div>
-            {isGroup ? <GroupSheet isAdmin={isAdmin} groupDetails={GroupDetails}/> :
+            {isGroup && GroupDetails ? <GroupSheet isAdmin={isAdmin} groupDetails={GroupDetails}/> :
           <ConversationSheet userDetails={otherUser} chatId={UserData?._id}/>
           }
         </div>
