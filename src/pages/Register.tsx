@@ -101,7 +101,7 @@ const RegisterPage = () => {
                 className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.name ? 'ring-red-500' : ''}`}
               />
               {errors.name && (
-                <p className="mt-2 text-sm text-red-600">
+                <p className=" text-sm text-red-600">
                   {errors.name.message}
                 </p>
               )}
@@ -122,7 +122,7 @@ const RegisterPage = () => {
                 className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.email ? 'ring-red-500' : ''}`}
               />
               {errors.email && (
-                <p className="mt-2 text-sm text-red-600">
+                <p className=" text-sm text-red-600">
                   {errors.email.message}
                 </p>
               )}
@@ -141,15 +141,13 @@ const RegisterPage = () => {
                 type={showPassword ? 'text' : 'password'}
                 className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.password ? 'ring-red-500' : ''}`}
               />
-                 <button
-                type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-              </button>
+                 {errors.password ? (
+                <button type="button" className="absolute  inset-y-0 right-0 pr-3 flex items-center mb-4" onClick={ () => setShowPassword(!showPassword)}>{showPassword ? <FaEyeSlash size={20}/> : <FaEye size={20}/>}</button>
+                ):(
+                  <button type="button" className="absolute  inset-y-0 right-0 pr-3 flex items-center" onClick={ () => setShowPassword(!showPassword)}>{showPassword ? <FaEyeSlash size={20}/> : <FaEye size={20}/>}</button>
+                )}
               {errors.password && (
-                <p className="mt-2 text-sm text-red-600">
+                <p className=" text-sm text-red-600">
                   {errors.password.message}
                 </p>
               )}
@@ -160,7 +158,7 @@ const RegisterPage = () => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full mt-4 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               {isSubmitting ? 'loading..' : 'Register'}
             </Button>

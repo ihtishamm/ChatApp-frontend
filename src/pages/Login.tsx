@@ -90,9 +90,14 @@ const Page = () => {
                   errors.password ? "ring-red-500" : ""
                 }`}
               />
-              <button type="button" className="absolute  inset-y-0 right-0 pr-3 flex items-center" onClick={ () => setShowPassword(!showPassword)}>{showPassword ? <FaEyeSlash size={20}/> : <FaEye size={20}/>}</button>
+              {errors.password ? (
+                <button type="button" className="absolute  inset-y-0 right-0 pr-3 flex items-center mb-4" onClick={ () => setShowPassword(!showPassword)}>{showPassword ? <FaEyeSlash size={20}/> : <FaEye size={20}/>}</button>
+                ):(
+                  <button type="button" className="absolute  inset-y-0 right-0 pr-3 flex items-center" onClick={ () => setShowPassword(!showPassword)}>{showPassword ? <FaEyeSlash size={20}/> : <FaEye size={20}/>}</button>
+                )}
+             
               {errors.password && (
-                <p className="mt-2 text-sm text-red-600">
+                <p className="text-sm text-red-600">
                   {errors.password.message}
                 </p>
               )}
