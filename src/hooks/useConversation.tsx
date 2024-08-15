@@ -3,10 +3,13 @@ import { useMemo } from "react";
 
 const useConversation = () => {
      const params = useParams();
+     console.log("params", params); 
     const conversationId = useMemo(() => {
-        if(!params.conversationId) return null;
-        return params.conversationId;
-    }, [params?.conversationId]);
+        if(!params.id) return null;
+        return params.id;
+    }, [params?.id]);
+
+    console.log("conversationId", conversationId);
     const isOpen = useMemo(() => !!conversationId, [conversationId]);
    
     return useMemo(() => ({ conversationId, isOpen }), [conversationId, isOpen])

@@ -25,7 +25,7 @@ const ConversationBox = ({ data, selected }: { data: Chat; selected: boolean }) 
         w-full relative flex items-center space-x-4 hover:bg-neutral-100 
         rounded-lg p-4 cursor-pointer transition overflow-y-auto
       `,
-        selected ? "bg-neutral-100" : "bg-white"
+        selected ? "bg-neutral-300" : "bg-white"
       )}
     >
       {data?.groupChat ? (
