@@ -42,7 +42,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const login = async (data: LoginData) => {
     try {
-      const response = await axios.post<LoginResponse>(`http://localhost:3000/api/v1/user/login`, data);
+      const response = await axios.post<LoginResponse>(`${import.meta.env.VITE_BACKEND_URL}/user/login`, data);
       const res = response.data;
       if (res.success) {
         toast.success("Login successful");
@@ -60,7 +60,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   const logOut = async () => {
-    await axios.post(`http://localhost:3000/api/v1/user/logout`, {}, {
+    await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/logout`, {}, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -75,23 +75,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     navigate("/login");
   };
 
-  // const refreshAccessToken = async (): Promise<string> => {
-  //   try {
-  //     const response = await axios.post(`http://localhost:3000/api/v1/user/refresh-token`, {}, {
-  //       headers: {
-  //         Authorization: `Bearer ${refreshToken}`,
-  //       },
-  //     });
-
-  //     const { accessToken } = response.data;
-  //     setToken(accessToken);
-  //     localStorage.setItem("site", accessToken);
-  //     return accessToken;
-  //   } catch (error) {
-  //     logOut();
-  //     throw error;
-  //   }
-  // };
 
   return (
     <AuthContext.Provider value={{ token, user, login, logOut, setToken }}>
