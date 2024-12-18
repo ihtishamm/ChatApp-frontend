@@ -1,6 +1,6 @@
 import EmptyPage from '@/components/Custom/EmptyPage'
 import AppLayout from '@/layout/AppLayout'
-// eslint-disable-next-line react-refresh/only-export-components
+
 const Home = ()  => {
   return (
          
@@ -12,5 +12,5 @@ const Home = ()  => {
   )
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
+
 export default AppLayout()(Home)

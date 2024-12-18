@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { HiEllipsisHorizontal } from "react-icons/hi2";
-import { FaEdit } from "react-icons/fa";
 import avatar from "@/assets/avatar.jpg";
 import { IoIosArrowDown } from "react-icons/io";
 import { useQueryClient } from "@tanstack/react-query";
@@ -25,7 +24,6 @@ import { Friend } from "@/Types/User";
 import { getFirstThreeMemberAvatars} from "@/lib/helper";
 import { NewMemberDialog } from "../Models/addMemberModel";
 import { useRemoveMembers } from "@/hooks/useChat";
-import AvatarGroup from "@/components/Custom/AvatarGroup";
 import { toast } from "react-toastify"
 import GroupAvatar from "../Custom/GroupAvatars";
 
@@ -168,12 +166,7 @@ export function GroupSheet({ isAdmin, groupDetails }: GroupSheetProps) {
           <hr className="border-t border-gray-200 my-4 w-full" />
 
           <div className="flex gap-2 mt-2 flex-col">
-            {/* {isAdmin && (
-              <Button variant="outline" size="sm">
-                <FaEdit className="mr-2" size={18} />
-                Edit Group Info
-              </Button>
-            )} */}
+            
             <LeaveGroupAlertDialog chatId={groupDetails?._id} />
           </div>
         </div>

@@ -7,7 +7,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { ChatAlertDialog } from "./DeleteChatAlertDialog";
 import { Friend } from "@/Types/User";
 import { UnfriendAlertDialog } from "./UnfriendDialog";
 

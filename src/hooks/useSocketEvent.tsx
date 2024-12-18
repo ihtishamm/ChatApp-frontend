@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect } from "react"
 
-const useSocketEvents = (socket, handlers) => {
+import { Socket } from "socket.io-client";
+
+const useSocketEvents = (socket: Socket, handlers)=> {
 
      useEffect(() => {
         Object.entries(handlers).forEach(([event, handler]) => {

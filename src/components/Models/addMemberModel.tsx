@@ -19,7 +19,8 @@ import { Checkbox } from "../ui/checkbox";
 import { Spinner } from "../Custom/spinner";
 import { useQueryClient } from "@tanstack/react-query";
 
-export function NewMemberDialog({ chatId, existingMembers }: { chatId: string; existingMembers:any }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function NewMemberDialog({ chatId, existingMembers }: { chatId: string; existingMembers: any }) {
   const { data: friends, isLoading } = useMyFriends();
   const queryClient = useQueryClient();
   const { mutate: addMember } = useAddMembers();
@@ -29,7 +30,7 @@ export function NewMemberDialog({ chatId, existingMembers }: { chatId: string; e
 
   useEffect(() => {
     if (friends && existingMembers) {
-      const groupFriendIds = existingMembers.members.map((member: { _id: string; }) => member._id);;
+      const groupFriendIds = existingMembers.members.map((member: { _id: string; }) => member._id);
       console.log(groupFriendIds);
       const newFilteredFriends = friends?.filter(friend => !groupFriendIds.includes(friend._id));
       setFilteredFriends(newFilteredFriends);

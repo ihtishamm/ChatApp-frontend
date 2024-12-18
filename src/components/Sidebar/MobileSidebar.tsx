@@ -9,7 +9,7 @@ interface MobileSidebarProps {
 }
 const MobileSidebar:React.FC<MobileSidebarProps> = ({activeComponent, setActiveComponent}) => {
 
-  const {requestCount, resetRequestCount} = useEvents();
+  const {resetRequestCount} = useEvents();
     const route = useRoutes(activeComponent,0);
     const { isOpen } = useConversation();
     if(isOpen) return null;

@@ -16,7 +16,7 @@ import { useEvents } from "@/context/EventsContext";
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<string[]>([]);
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
   const params = useParams();
 
   const chatId = params.id || "";
@@ -66,6 +66,7 @@ const Chat = () => {
 
     const newMessageAlertListener = useCallback(
     (data: { chatId: string; }) => {
+       // eslint-disable-next-line no-cond-assign
        if(data.chatId = chatId) return;
         incrementNewMessageAlerts();
     },
@@ -83,7 +84,7 @@ const Chat = () => {
   const allmessages = [ ...oldMessages?.data?.messages || [], ...messages];
 
   return (
-    <div className=" h-screen lg:pl-80">
+<div className=" h-screen lg:pl-80">
       {messageLoading  || isFetching ? (
         <Spinner />
       ) : (

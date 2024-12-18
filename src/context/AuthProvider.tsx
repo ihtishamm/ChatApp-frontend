@@ -37,7 +37,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string>(localStorage.getItem("site") || "");
-  const [refreshToken, setRefreshToken] = useState<string>(localStorage.getItem("refreshToken") || "");
+  const [, setRefreshToken] = useState<string>(localStorage.getItem("refreshToken") || "");
   const navigate = useNavigate();
 
   const login = async (data: LoginData) => {

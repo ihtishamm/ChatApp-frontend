@@ -37,6 +37,7 @@ export interface Friend {
         about:string;
         createdAt: string;
         updatedAt: string;
+        token: string;
       }
 
        export interface UserResponse {

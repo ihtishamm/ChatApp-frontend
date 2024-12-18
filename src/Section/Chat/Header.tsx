@@ -15,10 +15,10 @@ const Header = ({UserData, chatId}:{UserData:Chat, chatId:string}) => {
 
    const {data:GroupDetails} = useSingleGroupDetails(chatId);
   const otherUser = UserData?.members.find(member => member._id !== user?._id);
-  let isGroup = UserData?.groupChat;
+  const isGroup = UserData?.groupChat;
     const SelectedGroupmembers = UserData?.members?.slice(0,3).map(member => member.fullName).join(", ");
     
-   let isAdmin =  UserData?.creator === user?._id;
+   const isAdmin =  UserData?.creator === user?._id;
    console.log("isAdmin",isAdmin)
      
     const users = "online";

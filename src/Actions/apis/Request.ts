@@ -8,6 +8,7 @@ export const sendFriendRequest = async (reqId: string) => {
     });
     return response.data
   } catch (error) {
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
      if((error as any)?.response?.status === 400){
     console.error('Error fetching chats:', error);
     throw new Error('You have already sent a request');

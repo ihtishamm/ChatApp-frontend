@@ -93,7 +93,7 @@ interface ProfileFormProps extends React.ComponentProps<"form"> {
 function ProfileForm({ user, className }: ProfileFormProps) {
   const [email, setEmail] = React.useState(user?.email);
   const [username, setUsername] = React.useState(user?.username);
-  const [avatarUrl, setAvatarUrl] = React.useState(avatar);
+  const [, setAvatarUrl] = React.useState(avatar);
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

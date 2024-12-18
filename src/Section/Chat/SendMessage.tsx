@@ -42,7 +42,7 @@ const SendMessage: React.FC<SendMessageProps> = ({ message, setMessage, submitHa
           });
           setSelectedFiles([]);
         },
-        onError: (error: any) => {
+        onError: () => {
           toast.update(toastId, {
             render: "Error uploading files",
             type: "error",
@@ -58,12 +58,7 @@ const SendMessage: React.FC<SendMessageProps> = ({ message, setMessage, submitHa
     setSelectedFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    handleSendFiles();
-    submitHandler(e);
-    setSelectedFiles([]);
-  };
+  
 
   return (
     <div className="py-4 px-4 border-t flex items-center gap-2 lg:gap-4 w-full">

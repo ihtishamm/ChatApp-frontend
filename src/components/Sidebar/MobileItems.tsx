@@ -13,7 +13,7 @@ interface MobileidebarItemProps {
 }
 
 const MobileItem: React.FC<MobileidebarItemProps> = ({
-     icon: Icon, active,onClick, onBadgeClick, label, badge
+     icon: Icon, active,onClick, onBadgeClick, badge
 }) => {
     return (
         <div onClick={onClick}

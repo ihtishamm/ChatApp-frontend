@@ -11,7 +11,7 @@ interface DesktopSidebarProps {
 
 const DesktopSidebar:React.FC<DesktopSidebarProps> = ({ activeComponent, setActiveComponent}) => {
 
-    const {requestCount, resetRequestCount} = useEvents();
+    const {resetRequestCount} = useEvents();
     const route = useRoutes(activeComponent,0);
     const { logOut } = useAuth();
 

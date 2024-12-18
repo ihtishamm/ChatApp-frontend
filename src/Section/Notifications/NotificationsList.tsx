@@ -9,7 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
 const NotificationsList: React.FC = () => {
-  const { conversationId, isOpen } = useConversation();
+  const { isOpen } = useConversation();
   const { data, isLoading, isError } = useRecieveRequest();
   const queryClient = useQueryClient();
   const { mutate: acceptOrRejectRequest } = useAcceptRequest();
