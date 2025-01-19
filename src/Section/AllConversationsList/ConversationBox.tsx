@@ -10,9 +10,9 @@ import AvatarGroup from "@/components/Custom/AvatarGroup";
 const ConversationBox = ({ data, selected }: { data: Chat; selected: boolean }) => {
   const navigate = useNavigate();
 
-  const handleConversationClick = (_id: any) => {
+  const handleConversationClick = (_id: string) => {
     startTransition(() => {
-      navigate(`/chat/${_id}`); // Navigate to the chat/:id route
+      navigate(`/chat/${_id}`); 
     });
   };
 

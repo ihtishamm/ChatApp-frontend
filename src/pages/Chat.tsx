@@ -52,22 +52,26 @@ const Chat = () => {
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     if (message.trim() === "") return;
+    if(socket){
     socket.emit(NEW_MESSAGE, { chatId: params.id, members: Members, message });
+    }
     setMessage("");
   };
   const newMessageHandler = useCallback(
-    (data: { chatId: string | undefined; message: string; }) => {
+    (...args: unknown[]) => {
+      const data = args[0] as { chatId: string | undefined; message: string; };
       if (data.chatId === params.id) {
         setMessages((prev) => [...prev, data.message]);
       }
     },
     [params.id]
   ); 
-
-    const newMessageAlertListener = useCallback(
-    (data: { chatId: string; }) => {
-       // eslint-disable-next-line no-cond-assign
-       if(data.chatId = chatId) return;
+  
+  const newMessageAlertListener = useCallback(
+    (...args: unknown[]) => {
+      const data = args[0] as { chatId: string; };
+   
+       if(data?.chatId === chatId) return;
         incrementNewMessageAlerts();
     },
     [chatId]
@@ -79,7 +83,7 @@ const Chat = () => {
     [NEW_MESSAGE_ALERT]: newMessageAlertListener,
    };
 
-  useSocketEvents(socket, eventHandler);
+  useSocketEvents(socket!, eventHandler);
 
   const allmessages = [ ...oldMessages?.data?.messages || [], ...messages];
 

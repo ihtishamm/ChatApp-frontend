@@ -11,7 +11,7 @@ import { NewGroupDialog } from "@/components/Models/newGroupModel";
 
 const ConversationsList = () => {
     const {conversationId, isOpen} = useConversation()
-    const {data, isFetching, isLoading} = useMyChats()
+    const {data, isLoading} = useMyChats()
 
     return (
         

@@ -27,7 +27,7 @@ import { useEvents } from "@/context/EventsContext";
 
   const eventHandler = { [NEW_REQUEST]: newFriendRequestHandler };
 
-  useSocketEvents(socket, eventHandler);
+  useSocketEvents(socket!, eventHandler);
         const [activeComponent, setActiveComponent] = useState<string>("conversations");
          const location = useLocation();
          const isMobile = useMediaQuery("(max-width: 768px)");

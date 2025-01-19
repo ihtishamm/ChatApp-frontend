@@ -21,3 +21,29 @@ export interface Chat {
       chat:Chat
     };
   }
+
+   export interface Attachment  {
+    _id: string;
+    url: string;
+    filename: string;
+  }
+
+  export interface Message {
+    _id: string;
+    sender: {
+      _id: string;
+      fullName: string;
+      avatar: string;
+    };
+    content: string;
+    createdAt: string;
+    attachments?: Attachment[];
+  }
+  
+  export interface BodyProps {
+    messages: Message[];
+  }
+
+  export interface MessageData {
+    data: Message;
+  }

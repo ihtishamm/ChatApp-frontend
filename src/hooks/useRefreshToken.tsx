@@ -1,13 +1,11 @@
 
-import axios from '@/Actions/axois';
-import { useAuth } from '@/context/AuthProvider';
+ import { axiosPrivate } from '@/Actions/axois';
 import { AuthState } from '@/Types';
 
 const useRefreshToken = () => {
-    const { token } = useAuth();
 
     const refresh = async ():Promise<string> => {
-        const response = await axios.get('/user/refreshToken', {
+        const response = await axiosPrivate.get('/user/refreshToken', {
             withCredentials: true
         });
         ((prev: AuthState): AuthState => {

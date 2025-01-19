@@ -4,15 +4,16 @@ import { useMemo } from "react";
 
 
 
+import { Socket } from "socket.io-client";
 
-const SocketContext = createContext<any>(null);
+const SocketContext = createContext<Socket | null>(null);
 
 const getSocketConnection = () => useContext(SocketContext)
 
 const token = localStorage.getItem("site");
 const SocketProvider = ({children}: {children: React.ReactNode}) => {
 
-    const socket = useMemo(()  => io("http://localhost:3000",{
+    const socket = useMemo(()  => io(import.meta.env.VITE_BACKEND_SOCKET_URL,{
          query:{token},
     withCredentials:true,
     reconnectionAttempts: 5,
@@ -20,12 +21,13 @@ const SocketProvider = ({children}: {children: React.ReactNode}) => {
 
 }),
     
-    [token]);
+    []);
     return (
         <SocketContext.Provider value={socket}>
             {children}
         </SocketContext.Provider>
     )
 }
- 
-export {SocketProvider, getSocketConnection}
+
+export {SocketProvider, getSocketConnection};
+
